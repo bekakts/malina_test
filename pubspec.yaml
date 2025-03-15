@@ -40,6 +40,7 @@ dependencies:
   mobile_scanner: ^6.0.7
   permission_handler: ^11.4.0
   flutter_svg: ^2.0.17
+  app_settings: ^5.2.0
 
 dev_dependencies:
   flutter_test:

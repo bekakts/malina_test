@@ -12,6 +12,8 @@ class AppStrings {
   static const String market = 'Маркет';
   static const String flowers = 'Цветы';
   static const String sport = 'Спорт';
+  static const String cancel = 'Отмена';
+  static const String openSettings = 'Открыть настройки';
   static const String putQrToSquare = 'Поместите QR-код в рамку';
   static const String invalidQR = 'Не валидный QR.';
   static const String soonInMalina = 'Скоро в Malina';

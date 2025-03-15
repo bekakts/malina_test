@@ -1,4 +1,3 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,6 +12,7 @@ import 'package:malina_test/presentation/utils/app_images.dart';
 import 'package:malina_test/presentation/utils/app_strings.dart';
 
 import '../../../../../di/main_di.dart';
+import '../../../../base/qr_denied_dialog.dart';
 import '../../../../routing/app_router.dart';
 import '../../../../utils/extension/permission_ex.dart';
 
@@ -51,6 +51,7 @@ class _StorePageState extends State<StorePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const SizedBox(height: 12),
               buildSearchField(),
               buildQrStore(
                 onTap: (){
@@ -58,12 +59,12 @@ class _StorePageState extends State<StorePage> {
                     onAccepted: () {
                       context.router.push(QrScannerRoute());
                     },
-                    showDeniedSnackBar: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(AppStrings.cameraPermissionDenied),
-                        ),
-                      );
+                    onPermissionDenied: () {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return  buildQrDeniedDialog(context: context);
+                          });
                     },
                   );
                 }

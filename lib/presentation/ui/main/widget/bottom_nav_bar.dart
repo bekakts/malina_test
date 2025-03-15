@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:malina_test/presentation/base/qr_denied_dialog.dart';
 import 'package:malina_test/presentation/routing/app_router.dart';
 import 'package:malina_test/presentation/ui/main/state/main_state.dart';
 import 'package:malina_test/presentation/ui/main/widget/shopping_cart_container.dart';
@@ -30,7 +31,7 @@ class BottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
 
-    final rawCalculatedHeight = screenWidth / 5 + 10;
+    final rawCalculatedHeight = screenWidth / 5 + 15;
     final calculatedHeight = math.max(rawCalculatedHeight, 60).toDouble();
 
     return Stack(
@@ -57,7 +58,7 @@ class BottomNavBar extends StatelessWidget {
           right: 0,
           bottom: 0,
           child: Padding(
-            padding: const EdgeInsets.only(bottom: 10.0),
+            padding: const EdgeInsets.only(bottom: 15.0),
             child: _bottomNavBar(context),
           ),
         ),
@@ -123,12 +124,12 @@ class BottomNavBar extends StatelessWidget {
                   onAccepted: () {
                     context.router.push(QrScannerRoute());
                   },
-                  showDeniedSnackBar: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(AppStrings.cameraPermissionDenied),
-                      ),
-                    );
+                  onPermissionDenied: () {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return  buildQrDeniedDialog(context: context);
+                        });
                   },
                 );
               },

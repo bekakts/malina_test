@@ -4,7 +4,7 @@ import 'package:permission_handler/permission_handler.dart';
 
 void requestCameraPermission({
   required onAccepted,
-  required showDeniedSnackBar,
+  required onPermissionDenied,
 }) async {
   final status = await Permission.camera.status;
 
@@ -16,9 +16,9 @@ void requestCameraPermission({
     if (newStatus.isGranted) {
       onAccepted();
     } else if (newStatus.isPermanentlyDenied) {
-      showDeniedSnackBar();
+      onPermissionDenied();
     } else {
-      showDeniedSnackBar();
+      onPermissionDenied();
     }
   }
 }
