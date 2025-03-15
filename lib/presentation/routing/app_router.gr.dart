@@ -91,6 +91,22 @@ class ProfileRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [QrScannerPage]
+class QrScannerRoute extends PageRouteInfo<void> {
+  const QrScannerRoute({List<PageRouteInfo>? children})
+    : super(QrScannerRoute.name, initialChildren: children);
+
+  static const String name = 'QrScannerRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const QrScannerPage();
+    },
+  );
+}
+
+/// generated route for
 /// [StorePage]
 class StoreRoute extends PageRouteInfo<void> {
   const StoreRoute({List<PageRouteInfo>? children})
@@ -104,4 +120,41 @@ class StoreRoute extends PageRouteInfo<void> {
       return const StorePage();
     },
   );
+}
+
+/// generated route for
+/// [SuccessPage]
+class SuccessRoute extends PageRouteInfo<SuccessRouteArgs> {
+  SuccessRoute({
+    Key? key,
+    required String scannedData,
+    List<PageRouteInfo>? children,
+  }) : super(
+         SuccessRoute.name,
+         args: SuccessRouteArgs(key: key, scannedData: scannedData),
+         initialChildren: children,
+       );
+
+  static const String name = 'SuccessRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<SuccessRouteArgs>();
+      return SuccessPage(key: args.key, scannedData: args.scannedData);
+    },
+  );
+}
+
+class SuccessRouteArgs {
+  const SuccessRouteArgs({this.key, required this.scannedData});
+
+  final Key? key;
+
+  final String scannedData;
+
+  @override
+  String toString() {
+    return 'SuccessRouteArgs{key: $key, scannedData: $scannedData}';
+  }
 }

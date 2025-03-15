@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/cupertino.dart';
 
 import '../ui/main/child_pages/favorite/favorite_page.dart';
 import '../ui/main/child_pages/profile/profile_page.dart';
@@ -6,6 +7,8 @@ import '../ui/main/child_pages/shopping_cart/food/food_page.dart';
 import '../ui/main/child_pages/shopping_cart/product/product_page.dart';
 import '../ui/main/child_pages/store/store_page.dart';
 import '../ui/main/main_page.dart';
+import '../ui/qr/qr_scanner_page.dart';
+import '../ui/qr/success/success_page.dart';
 
 part 'app_router.gr.dart';
 
@@ -24,5 +27,7 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: ProductRoute.page),
       ],
     ),
+    AutoRoute(page: QrScannerRoute.page),
+    AutoRoute(page: SuccessRoute.page),
   ];
 }

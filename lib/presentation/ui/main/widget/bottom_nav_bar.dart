@@ -1,34 +1,39 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:malina_test/presentation/base/qr_denied_dialog.dart';
 import 'package:malina_test/presentation/routing/app_router.dart';
-
-import '../../../../di/main_di.dart';
+import 'package:malina_test/presentation/ui/main/state/main_state.dart';
+import 'package:malina_test/presentation/ui/main/widget/shopping_cart_container.dart';
+import 'package:malina_test/presentation/utils/app_colors.dart';
+import 'package:malina_test/presentation/utils/app_icons.dart';
+import 'package:malina_test/presentation/utils/app_strings.dart';
+import 'dart:math' as math;
+import '../../../utils/extension/permission_ex.dart';
 import '../event/main_event.dart';
 import '../main_bloc.dart';
-import '../state/main_state.dart';
+import 'bottom_nav_button.dart';
 
-class BottomNavBar extends StatefulWidget {
+class BottomNavBar extends StatelessWidget {
   final MainState state;
+  final int currentIndex;
+  final Function(int) onTabSelected;
 
-  const BottomNavBar({super.key, required this.state});
-
-  @override
-  State<BottomNavBar> createState() => _BottomNavBarState();
-}
-
-class _BottomNavBarState extends State<BottomNavBar> {
-  late final MainBloc _mainBloc;
-
-  @override
-  void initState() {
-    super.initState();
-    _mainBloc = locator<MainBloc>();
-  }
+  const BottomNavBar({
+    super.key,
+    required this.state,
+    required this.currentIndex,
+    required this.onTabSelected,
+  });
 
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final calculatedHeight = screenWidth / 5;
+
+
+    final rawCalculatedHeight = screenWidth / 5 + 15;
+    final calculatedHeight = math.max(rawCalculatedHeight, 60).toDouble();
 
     return Stack(
       children: [
@@ -39,26 +44,36 @@ class _BottomNavBarState extends State<BottomNavBar> {
           child: Material(
             elevation: 8,
             color: Colors.transparent,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
             child: Container(
               height: calculatedHeight,
-              decoration: BoxDecoration(
-                color: Colors.white,
+              decoration: const BoxDecoration(
+                color: AppColors.white,
                 borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
               ),
             ),
           ),
         ),
-
-        Positioned(left: 0, right: 0, bottom: 0, child: _bottomNavBar()),
+        Positioned(
+          left: 0,
+          right: 0,
+          bottom: 0,
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 15.0),
+            child: _bottomNavBar(context),
+          ),
+        ),
       ],
     );
   }
 
-  Widget _bottomNavBar() {
+  Widget _bottomNavBar(BuildContext context) {
+    final mainBloc = context.read<MainBloc>();
     final screenWidth = MediaQuery.of(context).size.width;
-    final bottomButtonSize = screenWidth / 5 - 10;
-    final router = AutoRouter.of(context);
+
+    final rawButtonSize = screenWidth / 5 - 10;
+    final bottomButtonSize = math.max(rawButtonSize, 40).toDouble();
+
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -67,12 +82,13 @@ class _BottomNavBarState extends State<BottomNavBar> {
           padding: const EdgeInsets.all(5.0),
           child: bottomNavButton(
             bottomButtonSize,
-            widget.state.currentTab == MainTab.shoppingCart,
-            "Лента",
-            Icons.store,
+            currentIndex == 0,
+            AppStrings.store,
+            AppIcons.store,
             () {
-              _mainBloc.add(const MainEvent.tabSelected(MainTab.store));
-              router.navigate(const StoreRoute());
+              mainBloc.add(const MainEvent.cartOverlayToggled(false));
+              mainBloc.add(const MainEvent.updateShoppingCartType());
+              onTabSelected(0);
             },
           ),
         ),
@@ -81,161 +97,68 @@ class _BottomNavBarState extends State<BottomNavBar> {
           padding: const EdgeInsets.all(5.0),
           child: bottomNavButton(
             bottomButtonSize,
-            widget.state.currentTab == MainTab.shoppingCart,
-            "Избранное",
-            Icons.favorite,
+            currentIndex == 1,
+            AppStrings.favorite,
+            AppIcons.favorite,
             () {
-              _mainBloc.add(const MainEvent.tabSelected(MainTab.favorite));
-              router.navigate(const FavoriteRoute());
+              mainBloc.add(const MainEvent.cartOverlayToggled(false));
+              mainBloc.add(const MainEvent.updateShoppingCartType());
+              onTabSelected(1);
             },
           ),
         ),
-
+        Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: SizedBox(
+            width: bottomButtonSize,
+            height: bottomButtonSize,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.malina,
+                shape: const CircleBorder(),
+                minimumSize: Size(bottomButtonSize, bottomButtonSize),
+                elevation: 4,
+              ),
+              onPressed: () {
+                mainBloc.add(const MainEvent.cartOverlayToggled(false));
+                requestCameraPermission(
+                  onAccepted: () {
+                    context.router.push(QrScannerRoute());
+                  },
+                  onPermissionDenied: () {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return  buildQrDeniedDialog(context: context);
+                        });
+                  },
+                );
+              },
+              child: SvgPicture.asset(AppIcons.qr),
+            ),
+          ),
+        ),
         Padding(
           padding: const EdgeInsets.all(5.0),
           child: bottomNavButton(
             bottomButtonSize,
-            widget.state.currentTab == MainTab.shoppingCart,
-            "Профиль",
-            Icons.person,
+            currentIndex == 2,
+            AppStrings.profile,
+            AppIcons.profile,
             () {
-              _mainBloc.add(const MainEvent.tabSelected(MainTab.profile));
-              router.navigate(const ProfileRoute());
+              mainBloc.add(const MainEvent.cartOverlayToggled(false));
+              mainBloc.add(const MainEvent.updateShoppingCartType());
+              onTabSelected(2);
             },
           ),
         ),
 
-        buildExpandingButtons(
-          context,
-          widget.state.isCartOverlayOpen,
-          bottomButtonSize,
-        ),
+        buildShoppingCartContainer(context, state, bottomButtonSize, (
+          int selectedIndex,
+        ) {
+          onTabSelected(selectedIndex);
+        }, currentIndex),
       ],
-    );
-  }
-
-  Widget buildExpandingButtons(
-    BuildContext context,
-    bool isExpanded,
-    double buttonSize,
-  ) {
-    const double spacing = 10.0;
-    final double totalHeight = buttonSize * 3 + spacing * 2;
-    final double containerHeight = (isExpanded ? totalHeight : buttonSize) + 10;
-    final double containerWidth = buttonSize + 10;
-
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 200),
-      curve: Curves.easeInOut,
-      padding: const EdgeInsets.all(5.0),
-      alignment: Alignment.bottomCenter,
-      width: containerWidth,
-      height: containerHeight,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(50),
-      ),
-      clipBehavior: Clip.hardEdge,
-      child: SizedBox(
-        width: buttonSize,
-        height: totalHeight,
-        child: Stack(
-          clipBehavior: Clip.none,
-          alignment: Alignment.bottomCenter,
-          children: [
-            AnimatedPositioned(
-              duration: const Duration(milliseconds: 200),
-              curve: Curves.easeInOut,
-              bottom: isExpanded ? buttonSize * 2 + spacing * 2 : 0,
-              child: GestureDetector(
-                onTap: () {
-                  /*    BlocProvider.of<StoreBloc>(
-                    context,
-                  ).add(ToggleExpansionEvent());*/
-                },
-                child: CircleAvatar(
-                  radius: buttonSize / 2,
-                  backgroundColor: Colors.blue,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const Icon(Icons.food_bank_outlined),
-                      SizedBox(height: 1),
-                      Text(
-                        "Еда",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black,
-                          fontSize: 10,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            AnimatedPositioned(
-              duration: const Duration(milliseconds: 200),
-              curve: Curves.easeInOut,
-              bottom: isExpanded ? buttonSize + spacing : 0,
-              child: GestureDetector(
-                onTap: () {
-                  /* BlocProvider.of<StoreBloc>(
-                    context,
-                  ).add(ToggleExpansionEvent());*/
-                },
-                child: CircleAvatar(
-                  radius: buttonSize / 2,
-                  backgroundColor: Colors.green,
-                  child: const Icon(Icons.share),
-                ),
-              ),
-            ),
-            Positioned(
-              bottom: 0,
-              child: bottomNavButton(
-                buttonSize,
-                widget.state.currentTab == MainTab.shoppingCart,
-                "Корзина",
-                Icons.shopping_cart,
-                () {
-                  _mainBloc.add(const MainEvent.cartOverlayToggled());
-                },
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget bottomNavButton(
-    double buttonSize,
-    bool isSelected,
-    String tabTitle,
-    IconData icon,
-    VoidCallback onTap,
-  ) {
-    return GestureDetector(
-      onTap: onTap,
-      child: CircleAvatar(
-        radius: buttonSize / 2,
-        backgroundColor: Colors.white,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Icon(icon, color: isSelected ? Colors.red : Colors.grey),
-            SizedBox(height: 1),
-            Text(
-              tabTitle,
-              style: TextStyle(fontSize: 10),
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:malina_test/presentation/routing/app_router.dart';
 import 'package:malina_test/presentation/ui/main/child_pages/store/store_bloc.dart';
-import 'package:malina_test/presentation/ui/main/child_pages/store/store_bloc.dart';
 import 'package:malina_test/presentation/ui/main/main_bloc.dart';
 
 import 'di/main_di.dart';
@@ -22,8 +21,12 @@ class MyApp extends StatelessWidget {
 
     return MultiBlocProvider(
       providers: [
-        BlocProvider<MainBloc>.value(value: locator<MainBloc>()),
-        BlocProvider<StoreBloc>.value(value: locator<StoreBloc>())
+        BlocProvider<MainBloc>(
+          create: (context) => locator<MainBloc>(),
+        ),
+        BlocProvider<StoreBloc>(
+          create: (context) => locator<StoreBloc>(),
+        ),
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,

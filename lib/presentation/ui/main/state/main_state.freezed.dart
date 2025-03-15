@@ -17,9 +17,8 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$MainState {
-  MainTab get currentTab => throw _privateConstructorUsedError;
   bool get isCartOverlayOpen => throw _privateConstructorUsedError;
-  CartSubTab? get selectedCartSubTab => throw _privateConstructorUsedError;
+  ShoppingCartType? get shoppingCartType => throw _privateConstructorUsedError;
 
   /// Create a copy of MainState
   /// with the given fields replaced by the non-null parameter values.
@@ -33,11 +32,7 @@ abstract class $MainStateCopyWith<$Res> {
   factory $MainStateCopyWith(MainState value, $Res Function(MainState) then) =
       _$MainStateCopyWithImpl<$Res, MainState>;
   @useResult
-  $Res call({
-    MainTab currentTab,
-    bool isCartOverlayOpen,
-    CartSubTab? selectedCartSubTab,
-  });
+  $Res call({bool isCartOverlayOpen, ShoppingCartType? shoppingCartType});
 }
 
 /// @nodoc
@@ -55,27 +50,21 @@ class _$MainStateCopyWithImpl<$Res, $Val extends MainState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? currentTab = null,
     Object? isCartOverlayOpen = null,
-    Object? selectedCartSubTab = freezed,
+    Object? shoppingCartType = freezed,
   }) {
     return _then(
       _value.copyWith(
-            currentTab:
-                null == currentTab
-                    ? _value.currentTab
-                    : currentTab // ignore: cast_nullable_to_non_nullable
-                        as MainTab,
             isCartOverlayOpen:
                 null == isCartOverlayOpen
                     ? _value.isCartOverlayOpen
                     : isCartOverlayOpen // ignore: cast_nullable_to_non_nullable
                         as bool,
-            selectedCartSubTab:
-                freezed == selectedCartSubTab
-                    ? _value.selectedCartSubTab
-                    : selectedCartSubTab // ignore: cast_nullable_to_non_nullable
-                        as CartSubTab?,
+            shoppingCartType:
+                freezed == shoppingCartType
+                    ? _value.shoppingCartType
+                    : shoppingCartType // ignore: cast_nullable_to_non_nullable
+                        as ShoppingCartType?,
           )
           as $Val,
     );
@@ -91,11 +80,7 @@ abstract class _$$MainStateImplCopyWith<$Res>
   ) = __$$MainStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({
-    MainTab currentTab,
-    bool isCartOverlayOpen,
-    CartSubTab? selectedCartSubTab,
-  });
+  $Res call({bool isCartOverlayOpen, ShoppingCartType? shoppingCartType});
 }
 
 /// @nodoc
@@ -112,27 +97,21 @@ class __$$MainStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? currentTab = null,
     Object? isCartOverlayOpen = null,
-    Object? selectedCartSubTab = freezed,
+    Object? shoppingCartType = freezed,
   }) {
     return _then(
       _$MainStateImpl(
-        currentTab:
-            null == currentTab
-                ? _value.currentTab
-                : currentTab // ignore: cast_nullable_to_non_nullable
-                    as MainTab,
         isCartOverlayOpen:
             null == isCartOverlayOpen
                 ? _value.isCartOverlayOpen
                 : isCartOverlayOpen // ignore: cast_nullable_to_non_nullable
                     as bool,
-        selectedCartSubTab:
-            freezed == selectedCartSubTab
-                ? _value.selectedCartSubTab
-                : selectedCartSubTab // ignore: cast_nullable_to_non_nullable
-                    as CartSubTab?,
+        shoppingCartType:
+            freezed == shoppingCartType
+                ? _value.shoppingCartType
+                : shoppingCartType // ignore: cast_nullable_to_non_nullable
+                    as ShoppingCartType?,
       ),
     );
   }
@@ -142,24 +121,20 @@ class __$$MainStateImplCopyWithImpl<$Res>
 
 class _$MainStateImpl implements _MainState {
   const _$MainStateImpl({
-    this.currentTab = MainTab.store,
     this.isCartOverlayOpen = false,
-    this.selectedCartSubTab = null,
+    this.shoppingCartType = null,
   });
 
-  @override
-  @JsonKey()
-  final MainTab currentTab;
   @override
   @JsonKey()
   final bool isCartOverlayOpen;
   @override
   @JsonKey()
-  final CartSubTab? selectedCartSubTab;
+  final ShoppingCartType? shoppingCartType;
 
   @override
   String toString() {
-    return 'MainState(currentTab: $currentTab, isCartOverlayOpen: $isCartOverlayOpen, selectedCartSubTab: $selectedCartSubTab)';
+    return 'MainState(isCartOverlayOpen: $isCartOverlayOpen, shoppingCartType: $shoppingCartType)';
   }
 
   @override
@@ -167,21 +142,15 @@ class _$MainStateImpl implements _MainState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$MainStateImpl &&
-            (identical(other.currentTab, currentTab) ||
-                other.currentTab == currentTab) &&
             (identical(other.isCartOverlayOpen, isCartOverlayOpen) ||
                 other.isCartOverlayOpen == isCartOverlayOpen) &&
-            (identical(other.selectedCartSubTab, selectedCartSubTab) ||
-                other.selectedCartSubTab == selectedCartSubTab));
+            (identical(other.shoppingCartType, shoppingCartType) ||
+                other.shoppingCartType == shoppingCartType));
   }
 
   @override
-  int get hashCode => Object.hash(
-    runtimeType,
-    currentTab,
-    isCartOverlayOpen,
-    selectedCartSubTab,
-  );
+  int get hashCode =>
+      Object.hash(runtimeType, isCartOverlayOpen, shoppingCartType);
 
   /// Create a copy of MainState
   /// with the given fields replaced by the non-null parameter values.
@@ -194,17 +163,14 @@ class _$MainStateImpl implements _MainState {
 
 abstract class _MainState implements MainState {
   const factory _MainState({
-    final MainTab currentTab,
     final bool isCartOverlayOpen,
-    final CartSubTab? selectedCartSubTab,
+    final ShoppingCartType? shoppingCartType,
   }) = _$MainStateImpl;
 
   @override
-  MainTab get currentTab;
-  @override
   bool get isCartOverlayOpen;
   @override
-  CartSubTab? get selectedCartSubTab;
+  ShoppingCartType? get shoppingCartType;
 
   /// Create a copy of MainState
   /// with the given fields replaced by the non-null parameter values.
