@@ -28,7 +28,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final calculatedHeight = screenWidth / 5;
+    final calculatedHeight = screenWidth / 5+10;
 
     return Stack(
       children: [
@@ -50,7 +50,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
           ),
         ),
 
-        Positioned(left: 0, right: 0, bottom: 0, child: _bottomNavBar()),
+        Positioned(left: 0, right: 0, bottom: 0, child: Padding(
+          padding: const EdgeInsets.only(bottom: 10.0),
+          child: _bottomNavBar(),
+        )),
       ],
     );
   }
@@ -88,6 +91,27 @@ class _BottomNavBarState extends State<BottomNavBar> {
               _mainBloc.add(const MainEvent.tabSelected(MainTab.favorite));
               router.navigate(const FavoriteRoute());
             },
+          ),
+        ),
+
+        Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: SizedBox(
+            width: bottomButtonSize,
+            height: bottomButtonSize,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red,
+                shape: const CircleBorder(),
+                minimumSize: Size(bottomButtonSize, bottomButtonSize),
+                elevation: 4,
+              ),
+              onPressed: () {},
+              child: const Icon(
+                Icons.apps,
+                color: Colors.white,
+              ),
+            ),
           ),
         ),
 
