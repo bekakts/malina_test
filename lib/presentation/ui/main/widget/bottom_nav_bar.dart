@@ -31,6 +31,7 @@ class BottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
 
+
     final rawCalculatedHeight = screenWidth / 5 + 15;
     final calculatedHeight = math.max(rawCalculatedHeight, 60).toDouble();
 
