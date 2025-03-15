@@ -9,7 +9,6 @@ class StoreCard extends StatelessWidget {
   final double borderRadius;
   final EdgeInsetsGeometry margin;
 
-
   const StoreCard({
     super.key,
     required this.backgroundColor,

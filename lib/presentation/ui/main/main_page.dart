@@ -28,15 +28,13 @@ class MainPage extends StatelessWidget {
             return Scaffold(
               body: Stack(
                 children: [
-                  // 1. Fill the space but add bottom padding to avoid overlap.
                   Positioned.fill(
                     child: Padding(
-                      padding: EdgeInsets.only(bottom: kBottomNavigationBarHeight),
+                      padding: EdgeInsets.only(bottom: kBottomNavigationBarHeight-12),
                       child: child,
                     ),
                   ),
 
-                  // 2. Keep the bottom nav bar aligned at the bottom.
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: BottomNavBar(

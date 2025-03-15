@@ -1,4 +1,5 @@
 import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -14,6 +15,8 @@ import 'package:malina_test/presentation/utils/app_images.dart';
 import 'package:malina_test/presentation/utils/app_strings.dart';
 
 import '../../../../../di/main_di.dart';
+import '../../../../routing/app_router.dart';
+import '../../../../utils/extension/permission_ex.dart';
 
 @RoutePage()
 class StorePage extends StatefulWidget {
@@ -46,13 +49,27 @@ class _StorePageState extends State<StorePage> {
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
-        // Entire page scrolls vertically
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               buildSearchField(),
-              buildQrStore(),
+              buildQrStore(
+                onTap: (){
+                  requestCameraPermission(
+                    onAccepted: () {
+                      context.router.push(QrScannerRoute());
+                    },
+                    showDeniedSnackBar: () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(AppStrings.cameraPermissionDenied),
+                        ),
+                      );
+                    },
+                  );
+                }
+              ),
 
               StoreCard(
                 backgroundColor: AppColors.food,

@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import '../event/main_event.dart';
 
 part 'main_state.freezed.dart';
 
@@ -7,5 +6,10 @@ part 'main_state.freezed.dart';
 class MainState with _$MainState {
   const factory MainState({
     @Default(false) bool isCartOverlayOpen,
+    @Default(null) ShoppingCartType? shoppingCartType,
   }) = _MainState;
+}
+
+enum ShoppingCartType{
+  food,product
 }

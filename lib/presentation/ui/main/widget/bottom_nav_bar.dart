@@ -9,7 +9,7 @@ import 'package:malina_test/presentation/utils/app_colors.dart';
 import 'package:malina_test/presentation/utils/app_icons.dart';
 import 'package:malina_test/presentation/utils/app_strings.dart';
 import 'dart:math' as math;
-import 'package:permission_handler/permission_handler.dart';
+import '../../../utils/extension/permission_ex.dart';
 import '../event/main_event.dart';
 import '../main_bloc.dart';
 import 'bottom_nav_button.dart';
@@ -85,6 +85,7 @@ class BottomNavBar extends StatelessWidget {
             AppIcons.store,
             () {
               mainBloc.add(const MainEvent.cartOverlayToggled(false));
+              mainBloc.add(const MainEvent.updateShoppingCartType());
               onTabSelected(0);
             },
           ),
@@ -99,6 +100,7 @@ class BottomNavBar extends StatelessWidget {
             AppIcons.favorite,
             () {
               mainBloc.add(const MainEvent.cartOverlayToggled(false));
+              mainBloc.add(const MainEvent.updateShoppingCartType());
               onTabSelected(1);
             },
           ),
@@ -117,11 +119,11 @@ class BottomNavBar extends StatelessWidget {
               ),
               onPressed: () {
                 mainBloc.add(const MainEvent.cartOverlayToggled(false));
-                _requestCameraPermission(
-                  () {
+                requestCameraPermission(
+                  onAccepted: () {
                     context.router.push(QrScannerRoute());
                   },
-                  () {
+                  showDeniedSnackBar: () {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(AppStrings.cameraPermissionDenied),
@@ -143,42 +145,18 @@ class BottomNavBar extends StatelessWidget {
             AppIcons.profile,
             () {
               mainBloc.add(const MainEvent.cartOverlayToggled(false));
+              mainBloc.add(const MainEvent.updateShoppingCartType());
               onTabSelected(2);
             },
           ),
         ),
 
-        buildShoppingCartContainer(
-          context,
-          state.isCartOverlayOpen,
-          bottomButtonSize,
-          (int selectedIndex) {
-            onTabSelected(selectedIndex);
-          },
-          currentIndex,
-        ),
+        buildShoppingCartContainer(context, state, bottomButtonSize, (
+          int selectedIndex,
+        ) {
+          onTabSelected(selectedIndex);
+        }, currentIndex),
       ],
     );
-  }
-
-  void _requestCameraPermission(
-    VoidCallback onAccepted,
-    VoidCallback showDeniedSnackBar,
-  ) async {
-    final status = await Permission.camera.status;
-
-    if (status.isGranted) {
-      onAccepted();
-    } else {
-      final newStatus = await Permission.camera.request();
-
-      if (newStatus.isGranted) {
-        onAccepted();
-      } else if (newStatus.isPermanentlyDenied) {
-        showDeniedSnackBar();
-      } else {
-        showDeniedSnackBar();
-      }
-    }
   }
 }

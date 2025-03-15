@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$MainState {
   bool get isCartOverlayOpen => throw _privateConstructorUsedError;
+  ShoppingCartType? get shoppingCartType => throw _privateConstructorUsedError;
 
   /// Create a copy of MainState
   /// with the given fields replaced by the non-null parameter values.
@@ -31,7 +32,7 @@ abstract class $MainStateCopyWith<$Res> {
   factory $MainStateCopyWith(MainState value, $Res Function(MainState) then) =
       _$MainStateCopyWithImpl<$Res, MainState>;
   @useResult
-  $Res call({bool isCartOverlayOpen});
+  $Res call({bool isCartOverlayOpen, ShoppingCartType? shoppingCartType});
 }
 
 /// @nodoc
@@ -48,7 +49,10 @@ class _$MainStateCopyWithImpl<$Res, $Val extends MainState>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? isCartOverlayOpen = null}) {
+  $Res call({
+    Object? isCartOverlayOpen = null,
+    Object? shoppingCartType = freezed,
+  }) {
     return _then(
       _value.copyWith(
             isCartOverlayOpen:
@@ -56,6 +60,11 @@ class _$MainStateCopyWithImpl<$Res, $Val extends MainState>
                     ? _value.isCartOverlayOpen
                     : isCartOverlayOpen // ignore: cast_nullable_to_non_nullable
                         as bool,
+            shoppingCartType:
+                freezed == shoppingCartType
+                    ? _value.shoppingCartType
+                    : shoppingCartType // ignore: cast_nullable_to_non_nullable
+                        as ShoppingCartType?,
           )
           as $Val,
     );
@@ -71,7 +80,7 @@ abstract class _$$MainStateImplCopyWith<$Res>
   ) = __$$MainStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool isCartOverlayOpen});
+  $Res call({bool isCartOverlayOpen, ShoppingCartType? shoppingCartType});
 }
 
 /// @nodoc
@@ -87,7 +96,10 @@ class __$$MainStateImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? isCartOverlayOpen = null}) {
+  $Res call({
+    Object? isCartOverlayOpen = null,
+    Object? shoppingCartType = freezed,
+  }) {
     return _then(
       _$MainStateImpl(
         isCartOverlayOpen:
@@ -95,6 +107,11 @@ class __$$MainStateImplCopyWithImpl<$Res>
                 ? _value.isCartOverlayOpen
                 : isCartOverlayOpen // ignore: cast_nullable_to_non_nullable
                     as bool,
+        shoppingCartType:
+            freezed == shoppingCartType
+                ? _value.shoppingCartType
+                : shoppingCartType // ignore: cast_nullable_to_non_nullable
+                    as ShoppingCartType?,
       ),
     );
   }
@@ -103,15 +120,21 @@ class __$$MainStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$MainStateImpl implements _MainState {
-  const _$MainStateImpl({this.isCartOverlayOpen = false});
+  const _$MainStateImpl({
+    this.isCartOverlayOpen = false,
+    this.shoppingCartType = null,
+  });
 
   @override
   @JsonKey()
   final bool isCartOverlayOpen;
+  @override
+  @JsonKey()
+  final ShoppingCartType? shoppingCartType;
 
   @override
   String toString() {
-    return 'MainState(isCartOverlayOpen: $isCartOverlayOpen)';
+    return 'MainState(isCartOverlayOpen: $isCartOverlayOpen, shoppingCartType: $shoppingCartType)';
   }
 
   @override
@@ -120,11 +143,14 @@ class _$MainStateImpl implements _MainState {
         (other.runtimeType == runtimeType &&
             other is _$MainStateImpl &&
             (identical(other.isCartOverlayOpen, isCartOverlayOpen) ||
-                other.isCartOverlayOpen == isCartOverlayOpen));
+                other.isCartOverlayOpen == isCartOverlayOpen) &&
+            (identical(other.shoppingCartType, shoppingCartType) ||
+                other.shoppingCartType == shoppingCartType));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isCartOverlayOpen);
+  int get hashCode =>
+      Object.hash(runtimeType, isCartOverlayOpen, shoppingCartType);
 
   /// Create a copy of MainState
   /// with the given fields replaced by the non-null parameter values.
@@ -136,10 +162,15 @@ class _$MainStateImpl implements _MainState {
 }
 
 abstract class _MainState implements MainState {
-  const factory _MainState({final bool isCartOverlayOpen}) = _$MainStateImpl;
+  const factory _MainState({
+    final bool isCartOverlayOpen,
+    final ShoppingCartType? shoppingCartType,
+  }) = _$MainStateImpl;
 
   @override
   bool get isCartOverlayOpen;
+  @override
+  ShoppingCartType? get shoppingCartType;
 
   /// Create a copy of MainState
   /// with the given fields replaced by the non-null parameter values.

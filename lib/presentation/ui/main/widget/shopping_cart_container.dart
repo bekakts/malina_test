@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:malina_test/presentation/ui/main/state/main_state.dart';
 import 'package:malina_test/presentation/utils/app_strings.dart';
 import 'package:malina_test/presentation/utils/app_colors.dart';
 
@@ -11,7 +12,7 @@ import 'bottom_nav_button.dart';
 
 Widget buildShoppingCartContainer(
   BuildContext context,
-  bool isExpanded,
+  MainState state,
   double buttonSize,
   Function(int index) onTabSelected,
   int currentIndex,
@@ -22,7 +23,8 @@ Widget buildShoppingCartContainer(
 
   final double totalHeight = buttonSize * 3 + spacing * 2;
 
-  final double containerHeight = (isExpanded ? totalHeight : buttonSize) + 10;
+  final double containerHeight =
+      (state.isCartOverlayOpen ? totalHeight : buttonSize) + 10;
   final double containerWidth = buttonSize + 10;
 
   return AnimatedContainer(
@@ -48,25 +50,43 @@ Widget buildShoppingCartContainer(
           AnimatedPositioned(
             duration: const Duration(milliseconds: 200),
             curve: Curves.easeInOut,
-            bottom: isExpanded ? buttonSize * 2 + spacing * 2 : 0,
+            bottom: state.isCartOverlayOpen ? buttonSize * 2 + spacing * 2 : 0,
             child: GestureDetector(
               onTap: () {
                 mainBloc.add(const MainEvent.cartOverlayToggled());
+                mainBloc.add(
+                  const MainEvent.updateShoppingCartType(ShoppingCartType.food),
+                );
                 onTabSelected(3);
               },
               child: CircleAvatar(
                 radius: buttonSize / 2,
-                backgroundColor: AppColors.bgSoftGrey,
+                backgroundColor:
+                    state.shoppingCartType == ShoppingCartType.food
+                        ? AppColors.malina
+                        : AppColors.bgSoftGrey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SvgPicture.asset(AppIcons.food),
+                    SvgPicture.asset(
+                      AppIcons.food,
+                      colorFilter: ColorFilter.mode(
+                        state.shoppingCartType == ShoppingCartType.food
+                            ? AppColors.white
+                            : AppColors.black,
+                        BlendMode
+                            .srcIn, // This ensures the source SVG is tinted
+                      ),
+                    ),
                     SizedBox(height: 1),
                     Text(
                       AppStrings.food,
                       style: TextStyle(
                         fontWeight: FontWeight.w400,
-                        color: AppColors.black,
+                        color:
+                            state.shoppingCartType == ShoppingCartType.food
+                                ? AppColors.white
+                                : AppColors.black,
                         fontSize: 10,
                       ),
                     ),
@@ -79,25 +99,45 @@ Widget buildShoppingCartContainer(
           AnimatedPositioned(
             duration: const Duration(milliseconds: 200),
             curve: Curves.easeInOut,
-            bottom: isExpanded ? buttonSize + spacing : 0,
+            bottom: state.isCartOverlayOpen ? buttonSize + spacing : 0,
             child: GestureDetector(
               onTap: () {
                 mainBloc.add(const MainEvent.cartOverlayToggled());
+                mainBloc.add(
+                  const MainEvent.updateShoppingCartType(
+                    ShoppingCartType.product,
+                  ),
+                );
                 onTabSelected(4);
               },
               child: CircleAvatar(
                 radius: buttonSize / 2,
-                backgroundColor: AppColors.bgSoftGrey,
+                backgroundColor:
+                    state.shoppingCartType == ShoppingCartType.product
+                        ? AppColors.malina
+                        : AppColors.bgSoftGrey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SvgPicture.asset(AppIcons.product),
+                    SvgPicture.asset(
+                      AppIcons.product,
+                      colorFilter: ColorFilter.mode(
+                        state.shoppingCartType == ShoppingCartType.product
+                            ? AppColors.white
+                            : AppColors.black,
+                        BlendMode
+                            .srcIn, // This ensures the source SVG is tinted
+                      ),
+                    ),
                     SizedBox(height: 1),
                     Text(
                       AppStrings.product,
                       style: TextStyle(
                         fontWeight: FontWeight.w400,
-                        color: AppColors.black,
+                        color:
+                            state.shoppingCartType == ShoppingCartType.product
+                                ? AppColors.white
+                                : AppColors.black,
                         fontSize: 10,
                       ),
                     ),
