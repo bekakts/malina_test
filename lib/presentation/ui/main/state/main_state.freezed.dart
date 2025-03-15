@@ -17,9 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$MainState {
-  MainTab get currentTab => throw _privateConstructorUsedError;
   bool get isCartOverlayOpen => throw _privateConstructorUsedError;
-  CartSubTab? get selectedCartSubTab => throw _privateConstructorUsedError;
 
   /// Create a copy of MainState
   /// with the given fields replaced by the non-null parameter values.
@@ -33,11 +31,7 @@ abstract class $MainStateCopyWith<$Res> {
   factory $MainStateCopyWith(MainState value, $Res Function(MainState) then) =
       _$MainStateCopyWithImpl<$Res, MainState>;
   @useResult
-  $Res call({
-    MainTab currentTab,
-    bool isCartOverlayOpen,
-    CartSubTab? selectedCartSubTab,
-  });
+  $Res call({bool isCartOverlayOpen});
 }
 
 /// @nodoc
@@ -54,28 +48,14 @@ class _$MainStateCopyWithImpl<$Res, $Val extends MainState>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? currentTab = null,
-    Object? isCartOverlayOpen = null,
-    Object? selectedCartSubTab = freezed,
-  }) {
+  $Res call({Object? isCartOverlayOpen = null}) {
     return _then(
       _value.copyWith(
-            currentTab:
-                null == currentTab
-                    ? _value.currentTab
-                    : currentTab // ignore: cast_nullable_to_non_nullable
-                        as MainTab,
             isCartOverlayOpen:
                 null == isCartOverlayOpen
                     ? _value.isCartOverlayOpen
                     : isCartOverlayOpen // ignore: cast_nullable_to_non_nullable
                         as bool,
-            selectedCartSubTab:
-                freezed == selectedCartSubTab
-                    ? _value.selectedCartSubTab
-                    : selectedCartSubTab // ignore: cast_nullable_to_non_nullable
-                        as CartSubTab?,
           )
           as $Val,
     );
@@ -91,11 +71,7 @@ abstract class _$$MainStateImplCopyWith<$Res>
   ) = __$$MainStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({
-    MainTab currentTab,
-    bool isCartOverlayOpen,
-    CartSubTab? selectedCartSubTab,
-  });
+  $Res call({bool isCartOverlayOpen});
 }
 
 /// @nodoc
@@ -111,28 +87,14 @@ class __$$MainStateImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? currentTab = null,
-    Object? isCartOverlayOpen = null,
-    Object? selectedCartSubTab = freezed,
-  }) {
+  $Res call({Object? isCartOverlayOpen = null}) {
     return _then(
       _$MainStateImpl(
-        currentTab:
-            null == currentTab
-                ? _value.currentTab
-                : currentTab // ignore: cast_nullable_to_non_nullable
-                    as MainTab,
         isCartOverlayOpen:
             null == isCartOverlayOpen
                 ? _value.isCartOverlayOpen
                 : isCartOverlayOpen // ignore: cast_nullable_to_non_nullable
                     as bool,
-        selectedCartSubTab:
-            freezed == selectedCartSubTab
-                ? _value.selectedCartSubTab
-                : selectedCartSubTab // ignore: cast_nullable_to_non_nullable
-                    as CartSubTab?,
       ),
     );
   }
@@ -141,25 +103,15 @@ class __$$MainStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$MainStateImpl implements _MainState {
-  const _$MainStateImpl({
-    this.currentTab = MainTab.store,
-    this.isCartOverlayOpen = false,
-    this.selectedCartSubTab = null,
-  });
+  const _$MainStateImpl({this.isCartOverlayOpen = false});
 
-  @override
-  @JsonKey()
-  final MainTab currentTab;
   @override
   @JsonKey()
   final bool isCartOverlayOpen;
-  @override
-  @JsonKey()
-  final CartSubTab? selectedCartSubTab;
 
   @override
   String toString() {
-    return 'MainState(currentTab: $currentTab, isCartOverlayOpen: $isCartOverlayOpen, selectedCartSubTab: $selectedCartSubTab)';
+    return 'MainState(isCartOverlayOpen: $isCartOverlayOpen)';
   }
 
   @override
@@ -167,21 +119,12 @@ class _$MainStateImpl implements _MainState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$MainStateImpl &&
-            (identical(other.currentTab, currentTab) ||
-                other.currentTab == currentTab) &&
             (identical(other.isCartOverlayOpen, isCartOverlayOpen) ||
-                other.isCartOverlayOpen == isCartOverlayOpen) &&
-            (identical(other.selectedCartSubTab, selectedCartSubTab) ||
-                other.selectedCartSubTab == selectedCartSubTab));
+                other.isCartOverlayOpen == isCartOverlayOpen));
   }
 
   @override
-  int get hashCode => Object.hash(
-    runtimeType,
-    currentTab,
-    isCartOverlayOpen,
-    selectedCartSubTab,
-  );
+  int get hashCode => Object.hash(runtimeType, isCartOverlayOpen);
 
   /// Create a copy of MainState
   /// with the given fields replaced by the non-null parameter values.
@@ -193,18 +136,10 @@ class _$MainStateImpl implements _MainState {
 }
 
 abstract class _MainState implements MainState {
-  const factory _MainState({
-    final MainTab currentTab,
-    final bool isCartOverlayOpen,
-    final CartSubTab? selectedCartSubTab,
-  }) = _$MainStateImpl;
+  const factory _MainState({final bool isCartOverlayOpen}) = _$MainStateImpl;
 
   @override
-  MainTab get currentTab;
-  @override
   bool get isCartOverlayOpen;
-  @override
-  CartSubTab? get selectedCartSubTab;
 
   /// Create a copy of MainState
   /// with the given fields replaced by the non-null parameter values.

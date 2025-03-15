@@ -76,7 +76,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        // "Лента" button (StoreRoute, index 0)
         Padding(
           padding: const EdgeInsets.all(5.0),
           child: bottomNavButton(
@@ -85,12 +84,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
             "Лента",
             Icons.store,
                 () {
-              _mainBloc.add(const MainEvent.tabSelected(MainTab.store));
               widget.onTabSelected(0);
             },
           ),
         ),
-        // "Избранное" button (FavoriteRoute, index 1)
         Padding(
           padding: const EdgeInsets.all(5.0),
           child: bottomNavButton(
@@ -99,12 +96,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
             "Избранное",
             Icons.favorite,
                 () {
-              _mainBloc.add(const MainEvent.tabSelected(MainTab.favorite));
               widget.onTabSelected(1);
             },
           ),
         ),
-        // Central button (custom action – not tied to a route)
         Padding(
           padding: const EdgeInsets.all(5.0),
           child: SizedBox(
@@ -136,7 +131,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
             "Профиль",
             Icons.person,
                 () {
-              _mainBloc.add(const MainEvent.tabSelected(MainTab.profile));
               widget.onTabSelected(2);
             },
           ),

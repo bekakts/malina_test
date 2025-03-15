@@ -10,20 +10,5 @@ class MainBloc extends Bloc<MainEvent, MainState> {
         isCartOverlayOpen: !state.isCartOverlayOpen,
       ));
     });
-
-    on<CartSubTabSelected>((event, emit) {
-      emit(state.copyWith(
-        selectedCartSubTab: event.cartSubTab,
-        isCartOverlayOpen: false,
-      ));
-    });
-
-    on<TabSelected>((event, emit) {
-      emit(state.copyWith(
-        currentTab: event.tab,
-        isCartOverlayOpen: false,
-        selectedCartSubTab: null,
-      ));
-    });
   }
 }

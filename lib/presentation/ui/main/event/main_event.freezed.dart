@@ -19,40 +19,28 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$MainEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(MainTab tab) tabSelected,
     required TResult Function() cartOverlayToggled,
-    required TResult Function(CartSubTab cartSubTab) cartSubTabSelected,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(MainTab tab)? tabSelected,
     TResult? Function()? cartOverlayToggled,
-    TResult? Function(CartSubTab cartSubTab)? cartSubTabSelected,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(MainTab tab)? tabSelected,
     TResult Function()? cartOverlayToggled,
-    TResult Function(CartSubTab cartSubTab)? cartSubTabSelected,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(TabSelected value) tabSelected,
     required TResult Function(CartOverlayToggled value) cartOverlayToggled,
-    required TResult Function(CartSubTabSelected value) cartSubTabSelected,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(TabSelected value)? tabSelected,
     TResult? Function(CartOverlayToggled value)? cartOverlayToggled,
-    TResult? Function(CartSubTabSelected value)? cartSubTabSelected,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(TabSelected value)? tabSelected,
     TResult Function(CartOverlayToggled value)? cartOverlayToggled,
-    TResult Function(CartSubTabSelected value)? cartSubTabSelected,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
 }
@@ -75,154 +63,6 @@ class _$MainEventCopyWithImpl<$Res, $Val extends MainEvent>
 
   /// Create a copy of MainEvent
   /// with the given fields replaced by the non-null parameter values.
-}
-
-/// @nodoc
-abstract class _$$TabSelectedImplCopyWith<$Res> {
-  factory _$$TabSelectedImplCopyWith(
-    _$TabSelectedImpl value,
-    $Res Function(_$TabSelectedImpl) then,
-  ) = __$$TabSelectedImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({MainTab tab});
-}
-
-/// @nodoc
-class __$$TabSelectedImplCopyWithImpl<$Res>
-    extends _$MainEventCopyWithImpl<$Res, _$TabSelectedImpl>
-    implements _$$TabSelectedImplCopyWith<$Res> {
-  __$$TabSelectedImplCopyWithImpl(
-    _$TabSelectedImpl _value,
-    $Res Function(_$TabSelectedImpl) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of MainEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? tab = null}) {
-    return _then(
-      _$TabSelectedImpl(
-        null == tab
-            ? _value.tab
-            : tab // ignore: cast_nullable_to_non_nullable
-                as MainTab,
-      ),
-    );
-  }
-}
-
-/// @nodoc
-
-class _$TabSelectedImpl implements TabSelected {
-  const _$TabSelectedImpl(this.tab);
-
-  @override
-  final MainTab tab;
-
-  @override
-  String toString() {
-    return 'MainEvent.tabSelected(tab: $tab)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$TabSelectedImpl &&
-            (identical(other.tab, tab) || other.tab == tab));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, tab);
-
-  /// Create a copy of MainEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$TabSelectedImplCopyWith<_$TabSelectedImpl> get copyWith =>
-      __$$TabSelectedImplCopyWithImpl<_$TabSelectedImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(MainTab tab) tabSelected,
-    required TResult Function() cartOverlayToggled,
-    required TResult Function(CartSubTab cartSubTab) cartSubTabSelected,
-  }) {
-    return tabSelected(tab);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(MainTab tab)? tabSelected,
-    TResult? Function()? cartOverlayToggled,
-    TResult? Function(CartSubTab cartSubTab)? cartSubTabSelected,
-  }) {
-    return tabSelected?.call(tab);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(MainTab tab)? tabSelected,
-    TResult Function()? cartOverlayToggled,
-    TResult Function(CartSubTab cartSubTab)? cartSubTabSelected,
-    required TResult orElse(),
-  }) {
-    if (tabSelected != null) {
-      return tabSelected(tab);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(TabSelected value) tabSelected,
-    required TResult Function(CartOverlayToggled value) cartOverlayToggled,
-    required TResult Function(CartSubTabSelected value) cartSubTabSelected,
-  }) {
-    return tabSelected(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(TabSelected value)? tabSelected,
-    TResult? Function(CartOverlayToggled value)? cartOverlayToggled,
-    TResult? Function(CartSubTabSelected value)? cartSubTabSelected,
-  }) {
-    return tabSelected?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(TabSelected value)? tabSelected,
-    TResult Function(CartOverlayToggled value)? cartOverlayToggled,
-    TResult Function(CartSubTabSelected value)? cartSubTabSelected,
-    required TResult orElse(),
-  }) {
-    if (tabSelected != null) {
-      return tabSelected(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class TabSelected implements MainEvent {
-  const factory TabSelected(final MainTab tab) = _$TabSelectedImpl;
-
-  MainTab get tab;
-
-  /// Create a copy of MainEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$TabSelectedImplCopyWith<_$TabSelectedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -268,9 +108,7 @@ class _$CartOverlayToggledImpl implements CartOverlayToggled {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(MainTab tab) tabSelected,
     required TResult Function() cartOverlayToggled,
-    required TResult Function(CartSubTab cartSubTab) cartSubTabSelected,
   }) {
     return cartOverlayToggled();
   }
@@ -278,9 +116,7 @@ class _$CartOverlayToggledImpl implements CartOverlayToggled {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(MainTab tab)? tabSelected,
     TResult? Function()? cartOverlayToggled,
-    TResult? Function(CartSubTab cartSubTab)? cartSubTabSelected,
   }) {
     return cartOverlayToggled?.call();
   }
@@ -288,9 +124,7 @@ class _$CartOverlayToggledImpl implements CartOverlayToggled {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(MainTab tab)? tabSelected,
     TResult Function()? cartOverlayToggled,
-    TResult Function(CartSubTab cartSubTab)? cartSubTabSelected,
     required TResult orElse(),
   }) {
     if (cartOverlayToggled != null) {
@@ -302,9 +136,7 @@ class _$CartOverlayToggledImpl implements CartOverlayToggled {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(TabSelected value) tabSelected,
     required TResult Function(CartOverlayToggled value) cartOverlayToggled,
-    required TResult Function(CartSubTabSelected value) cartSubTabSelected,
   }) {
     return cartOverlayToggled(this);
   }
@@ -312,9 +144,7 @@ class _$CartOverlayToggledImpl implements CartOverlayToggled {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(TabSelected value)? tabSelected,
     TResult? Function(CartOverlayToggled value)? cartOverlayToggled,
-    TResult? Function(CartSubTabSelected value)? cartSubTabSelected,
   }) {
     return cartOverlayToggled?.call(this);
   }
@@ -322,9 +152,7 @@ class _$CartOverlayToggledImpl implements CartOverlayToggled {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(TabSelected value)? tabSelected,
     TResult Function(CartOverlayToggled value)? cartOverlayToggled,
-    TResult Function(CartSubTabSelected value)? cartSubTabSelected,
     required TResult orElse(),
   }) {
     if (cartOverlayToggled != null) {
@@ -336,157 +164,4 @@ class _$CartOverlayToggledImpl implements CartOverlayToggled {
 
 abstract class CartOverlayToggled implements MainEvent {
   const factory CartOverlayToggled() = _$CartOverlayToggledImpl;
-}
-
-/// @nodoc
-abstract class _$$CartSubTabSelectedImplCopyWith<$Res> {
-  factory _$$CartSubTabSelectedImplCopyWith(
-    _$CartSubTabSelectedImpl value,
-    $Res Function(_$CartSubTabSelectedImpl) then,
-  ) = __$$CartSubTabSelectedImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({CartSubTab cartSubTab});
-}
-
-/// @nodoc
-class __$$CartSubTabSelectedImplCopyWithImpl<$Res>
-    extends _$MainEventCopyWithImpl<$Res, _$CartSubTabSelectedImpl>
-    implements _$$CartSubTabSelectedImplCopyWith<$Res> {
-  __$$CartSubTabSelectedImplCopyWithImpl(
-    _$CartSubTabSelectedImpl _value,
-    $Res Function(_$CartSubTabSelectedImpl) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of MainEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? cartSubTab = null}) {
-    return _then(
-      _$CartSubTabSelectedImpl(
-        null == cartSubTab
-            ? _value.cartSubTab
-            : cartSubTab // ignore: cast_nullable_to_non_nullable
-                as CartSubTab,
-      ),
-    );
-  }
-}
-
-/// @nodoc
-
-class _$CartSubTabSelectedImpl implements CartSubTabSelected {
-  const _$CartSubTabSelectedImpl(this.cartSubTab);
-
-  @override
-  final CartSubTab cartSubTab;
-
-  @override
-  String toString() {
-    return 'MainEvent.cartSubTabSelected(cartSubTab: $cartSubTab)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$CartSubTabSelectedImpl &&
-            (identical(other.cartSubTab, cartSubTab) ||
-                other.cartSubTab == cartSubTab));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, cartSubTab);
-
-  /// Create a copy of MainEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$CartSubTabSelectedImplCopyWith<_$CartSubTabSelectedImpl> get copyWith =>
-      __$$CartSubTabSelectedImplCopyWithImpl<_$CartSubTabSelectedImpl>(
-        this,
-        _$identity,
-      );
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(MainTab tab) tabSelected,
-    required TResult Function() cartOverlayToggled,
-    required TResult Function(CartSubTab cartSubTab) cartSubTabSelected,
-  }) {
-    return cartSubTabSelected(cartSubTab);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(MainTab tab)? tabSelected,
-    TResult? Function()? cartOverlayToggled,
-    TResult? Function(CartSubTab cartSubTab)? cartSubTabSelected,
-  }) {
-    return cartSubTabSelected?.call(cartSubTab);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(MainTab tab)? tabSelected,
-    TResult Function()? cartOverlayToggled,
-    TResult Function(CartSubTab cartSubTab)? cartSubTabSelected,
-    required TResult orElse(),
-  }) {
-    if (cartSubTabSelected != null) {
-      return cartSubTabSelected(cartSubTab);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(TabSelected value) tabSelected,
-    required TResult Function(CartOverlayToggled value) cartOverlayToggled,
-    required TResult Function(CartSubTabSelected value) cartSubTabSelected,
-  }) {
-    return cartSubTabSelected(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(TabSelected value)? tabSelected,
-    TResult? Function(CartOverlayToggled value)? cartOverlayToggled,
-    TResult? Function(CartSubTabSelected value)? cartSubTabSelected,
-  }) {
-    return cartSubTabSelected?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(TabSelected value)? tabSelected,
-    TResult Function(CartOverlayToggled value)? cartOverlayToggled,
-    TResult Function(CartSubTabSelected value)? cartSubTabSelected,
-    required TResult orElse(),
-  }) {
-    if (cartSubTabSelected != null) {
-      return cartSubTabSelected(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class CartSubTabSelected implements MainEvent {
-  const factory CartSubTabSelected(final CartSubTab cartSubTab) =
-      _$CartSubTabSelectedImpl;
-
-  CartSubTab get cartSubTab;
-
-  /// Create a copy of MainEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$CartSubTabSelectedImplCopyWith<_$CartSubTabSelectedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
 }
