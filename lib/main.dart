@@ -22,8 +22,12 @@ class MyApp extends StatelessWidget {
 
     return MultiBlocProvider(
       providers: [
-        BlocProvider<MainBloc>.value(value: locator<MainBloc>()),
-        BlocProvider<StoreBloc>.value(value: locator<StoreBloc>())
+        BlocProvider<MainBloc>(
+          create: (context) => locator<MainBloc>(),
+        ),
+        BlocProvider<StoreBloc>(
+          create: (context) => locator<StoreBloc>(),
+        ),
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,

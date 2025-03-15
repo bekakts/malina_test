@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:malina_test/presentation/ui/main/event/main_event.dart';
 import 'package:malina_test/presentation/ui/main/main_bloc.dart';
 import 'package:malina_test/presentation/ui/main/state/main_state.dart';
-import '../../../../di/main_di.dart';
+import 'dart:math' as math;
 
-class BottomNavBar extends StatefulWidget {
+class BottomNavBar extends StatelessWidget {
   final MainState state;
   final int currentIndex;
   final Function(int) onTabSelected;
-
 
   const BottomNavBar({
     super.key,
@@ -18,89 +18,73 @@ class BottomNavBar extends StatefulWidget {
   });
 
   @override
-  State<BottomNavBar> createState() => _BottomNavBarState();
-}
-
-class _BottomNavBarState extends State<BottomNavBar> {
-  late final MainBloc _mainBloc;
-
-  @override
-  void initState() {
-    super.initState();
-    _mainBloc = locator<MainBloc>();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final calculatedHeight = screenWidth / 5 + 10;
+
+    final rawCalculatedHeight = screenWidth / 5 + 10;
+    final calculatedHeight = math.max(rawCalculatedHeight, 60).toDouble();
 
     return Stack(
       children: [
         Positioned(
-          left: 0,
-          right: 0,
-          bottom: 0,
+          left: 0, right: 0, bottom: 0,
           child: Material(
             elevation: 8,
             color: Colors.transparent,
-            borderRadius:
-            const BorderRadius.vertical(top: Radius.circular(12)),
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
             child: Container(
               height: calculatedHeight,
               decoration: const BoxDecoration(
                 color: Colors.white,
-                borderRadius:
-                BorderRadius.vertical(top: Radius.circular(12)),
+                borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
               ),
             ),
           ),
         ),
         Positioned(
-          left: 0,
-          right: 0,
-          bottom: 0,
+          left: 0, right: 0, bottom: 0,
           child: Padding(
             padding: const EdgeInsets.only(bottom: 10.0),
-            child: _bottomNavBar(),
+            child: _bottomNavBar(context),
           ),
         ),
       ],
     );
   }
 
-  Widget _bottomNavBar() {
+  Widget _bottomNavBar(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final bottomButtonSize = screenWidth / 5 - 10;
+
+    final rawButtonSize = screenWidth / 5 - 10;
+    final bottomButtonSize = math.max(rawButtonSize, 40).toDouble();
 
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
+        // "Лента"
         Padding(
           padding: const EdgeInsets.all(5.0),
           child: bottomNavButton(
             bottomButtonSize,
-            widget.currentIndex == 0,
+            currentIndex == 0,
             "Лента",
             Icons.store,
-                () {
-              widget.onTabSelected(0);
-            },
+                () => onTabSelected(0),
           ),
         ),
+        // "Избранное"
         Padding(
           padding: const EdgeInsets.all(5.0),
           child: bottomNavButton(
             bottomButtonSize,
-            widget.currentIndex == 1,
+            currentIndex == 1,
             "Избранное",
             Icons.favorite,
-                () {
-              widget.onTabSelected(1);
-            },
+                () => onTabSelected(1),
           ),
         ),
+        // Central button
         Padding(
           padding: const EdgeInsets.all(5.0),
           child: SizedBox(
@@ -114,34 +98,25 @@ class _BottomNavBarState extends State<BottomNavBar> {
                 elevation: 4,
               ),
               onPressed: () {
-                // Define your central button action here if needed.
+                // Central action, if any
               },
-              child: const Icon(
-                Icons.apps,
-                color: Colors.white,
-              ),
+              child: const Icon(Icons.apps, color: Colors.white),
             ),
           ),
         ),
-        // "Профиль" button (ProfileRoute, index 2)
+        // "Профиль"
         Padding(
           padding: const EdgeInsets.all(5.0),
           child: bottomNavButton(
             bottomButtonSize,
-            widget.currentIndex == 2,
+            currentIndex == 2,
             "Профиль",
             Icons.person,
-                () {
-              widget.onTabSelected(2);
-            },
+                () => onTabSelected(2),
           ),
         ),
-        // Expanding buttons: "Еда" (FoodRoute, index 3) and "Корзина" (ProductRoute, index 4)
-        buildExpandingButtons(
-          context,
-          widget.state.isCartOverlayOpen,
-          bottomButtonSize,
-        ),
+        // Expanding section for "Еда" + "Корзина"
+        buildExpandingButtons(context, state.isCartOverlayOpen, bottomButtonSize),
       ],
     );
   }
@@ -151,8 +126,14 @@ class _BottomNavBarState extends State<BottomNavBar> {
       bool isExpanded,
       double buttonSize,
       ) {
+    final mainBloc = context.read<MainBloc>();
+
     const double spacing = 10.0;
+
+    // totalHeight for the 3 stacked circle buttons
     final double totalHeight = buttonSize * 3 + spacing * 2;
+
+    // The container either shows 1 circle or up to 3 circles stacked
     final double containerHeight = (isExpanded ? totalHeight : buttonSize) + 10;
     final double containerWidth = buttonSize + 10;
 
@@ -175,15 +156,17 @@ class _BottomNavBarState extends State<BottomNavBar> {
           clipBehavior: Clip.none,
           alignment: Alignment.bottomCenter,
           children: [
-            // "Еда" button (FoodRoute, index 3)
+            // "Еда"
             AnimatedPositioned(
               duration: const Duration(milliseconds: 200),
               curve: Curves.easeInOut,
               bottom: isExpanded ? buttonSize * 2 + spacing * 2 : 0,
               child: GestureDetector(
                 onTap: () {
-                  _mainBloc.add(const MainEvent.cartOverlayToggled());
-                  widget.onTabSelected(3);
+                  // Toggle overlay first
+                  mainBloc.add(const MainEvent.cartOverlayToggled());
+                  // Then switch to tab 3
+                  onTabSelected(3);
                 },
                 child: CircleAvatar(
                   radius: buttonSize / 2,
@@ -206,15 +189,15 @@ class _BottomNavBarState extends State<BottomNavBar> {
                 ),
               ),
             ),
-            // Additional expanding button (for example, a share button)
+            // Extra expanding button
             AnimatedPositioned(
               duration: const Duration(milliseconds: 200),
               curve: Curves.easeInOut,
               bottom: isExpanded ? buttonSize + spacing : 0,
               child: GestureDetector(
                 onTap: () {
-                  widget.onTabSelected(4);
-                  _mainBloc.add(const MainEvent.cartOverlayToggled());
+                  mainBloc.add(const MainEvent.cartOverlayToggled());
+                  onTabSelected(4);
                 },
                 child: CircleAvatar(
                   radius: buttonSize / 2,
@@ -223,17 +206,18 @@ class _BottomNavBarState extends State<BottomNavBar> {
                 ),
               ),
             ),
-            // "Корзина" button (ProductRoute, index 4)
+            // "Корзина"
             Positioned(
               bottom: 0,
               child: bottomNavButton(
                 buttonSize,
-                widget.currentIndex == 4 || widget.currentIndex ==3,
+                currentIndex == 4 || currentIndex == 3,
                 "Корзина",
                 Icons.shopping_cart,
                     () {
-                      _mainBloc.add(const MainEvent.cartOverlayToggled());
-                 // widget.onTabSelected(4);
+                  mainBloc.add(const MainEvent.cartOverlayToggled());
+                  // If you want to also switch:
+                  // onTabSelected(4);
                 },
               ),
             ),
@@ -253,6 +237,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     return GestureDetector(
       onTap: onTap,
       child: CircleAvatar(
+        // The radius is half the buttonSize, which we've clamped to >= 40
         radius: buttonSize / 2,
         backgroundColor: Colors.white,
         child: Column(
@@ -271,3 +256,4 @@ class _BottomNavBarState extends State<BottomNavBar> {
     );
   }
 }
+
