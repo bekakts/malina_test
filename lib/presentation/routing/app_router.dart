@@ -8,7 +8,7 @@ import '../ui/main/child_pages/shopping_cart/product/product_page.dart';
 import '../ui/main/child_pages/store/store_page.dart';
 import '../ui/main/main_page.dart';
 import '../ui/qr/qr_scanner_page.dart';
-import '../ui/success/success_page.dart';
+import '../ui/qr/success/success_page.dart';
 
 part 'app_router.gr.dart';
 

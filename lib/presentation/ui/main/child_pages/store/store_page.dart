@@ -1,9 +1,17 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:malina_test/presentation/ui/main/child_pages/store/store_bloc.dart';
 import 'package:malina_test/presentation/ui/main/child_pages/store/store_state.dart';
+import 'package:malina_test/presentation/ui/main/child_pages/store/widget/qr_store.dart';
+import 'package:malina_test/presentation/ui/main/child_pages/store/widget/search_field.dart';
+import 'package:malina_test/presentation/ui/main/child_pages/store/widget/store_card.dart';
+import 'package:malina_test/presentation/ui/main/child_pages/store/widget/store_list.dart';
 import 'package:malina_test/presentation/utils/app_colors.dart';
+import 'package:malina_test/presentation/utils/app_icons.dart';
+import 'package:malina_test/presentation/utils/app_images.dart';
+import 'package:malina_test/presentation/utils/app_strings.dart';
 
 import '../../../../../di/main_di.dart';
 
@@ -29,11 +37,60 @@ class _StorePageState extends State<StorePage> {
     return BlocBuilder<StoreBloc, StoreState>(
       bloc: _storeBloc,
       builder: (context, state) {
-        return Scaffold(
-          backgroundColor: AppColors.malina,
-          body: Align(alignment: Alignment.bottomCenter, child: Text("j")),
-        );
+        return _buildStore();
       },
+    );
+  }
+
+  Widget _buildStore() {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: SafeArea(
+        // Entire page scrolls vertically
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              buildSearchField(),
+              buildQrStore(),
+
+              StoreCard(
+                backgroundColor: AppColors.food,
+                imagePath: AppImages.food,
+                title: AppStrings.food,
+                description: AppStrings.fromRestaurant,
+                onTap: () {},
+              ),
+              const SizedBox(height: 20),
+              StoreCard(
+                backgroundColor: AppColors.pink,
+                imagePath: AppImages.product,
+                title: AppStrings.product,
+                description: AppStrings.fromProduct,
+                onTap: () {},
+              ),
+              const SizedBox(height: 30),
+
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Text(
+                  AppStrings.soonInMalina,
+                  style: TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.darkBlack,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 8),
+
+              buildHorizontalStoreList(),
+
+              const SizedBox(height: 40),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:malina_test/presentation/routing/app_router.dart';
 import 'package:malina_test/presentation/ui/main/child_pages/store/store_bloc.dart';
-import 'package:malina_test/presentation/ui/main/child_pages/store/store_bloc.dart';
 import 'package:malina_test/presentation/ui/main/main_bloc.dart';
 
 import 'di/main_di.dart';

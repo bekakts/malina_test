@@ -6,6 +6,8 @@ class AppIcons {
   static const String qr  = 'assets/bottom_nav_icons/icon_qr.svg';
   static const String shoppingCart  = 'assets/bottom_nav_icons/icon_shopping_cart.svg';
   static const String store  = 'assets/bottom_nav_icons/icon_store.svg';
+  static const String search  = 'assets/icons/icon_search.svg';
+  static const String storeQr  = 'assets/icons/icon_store_qr.svg';
 
 
 }
