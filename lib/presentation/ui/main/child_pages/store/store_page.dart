@@ -2,7 +2,6 @@ import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:malina_test/presentation/ui/main/child_pages/store/store_bloc.dart';
 import 'package:malina_test/presentation/ui/main/child_pages/store/store_state.dart';
 import 'package:malina_test/presentation/ui/main/child_pages/store/widget/qr_store.dart';
@@ -10,7 +9,6 @@ import 'package:malina_test/presentation/ui/main/child_pages/store/widget/search
 import 'package:malina_test/presentation/ui/main/child_pages/store/widget/store_card.dart';
 import 'package:malina_test/presentation/ui/main/child_pages/store/widget/store_list.dart';
 import 'package:malina_test/presentation/utils/app_colors.dart';
-import 'package:malina_test/presentation/utils/app_icons.dart';
 import 'package:malina_test/presentation/utils/app_images.dart';
 import 'package:malina_test/presentation/utils/app_strings.dart';
 
