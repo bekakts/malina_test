@@ -139,6 +139,7 @@ class BottomNavBar extends StatelessWidget {
                 () => onTabSelected(2),
           ),
         ),
+
         buildExpandingButtons(
           context,
           state.isCartOverlayOpen,
