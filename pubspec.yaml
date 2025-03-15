@@ -78,7 +78,6 @@ flutter:
     - assets/images/img_product.png
     - assets/images/img_splash.png
     - assets/images/img_app_icon.png
-    - assets/images/img_splash_background.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
@@ -93,7 +92,7 @@ flutter_native_splash:
   android_gravity: center
   ios_content_mode: center
   android_12:
-    image: assets/images/img_splash_background.png
+    image: assets/images/img_app_icon.png
     icon_background_color: "#FFFFFF"
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
