@@ -48,6 +48,7 @@ dev_dependencies:
   build_runner: ^2.4.15
   freezed: ^2.5.8
   flutter_lints: ^5.0.0
+  flutter_native_splash: ^2.4.5
 
 
 # For information on the generic Dart part of this file, see the
@@ -74,13 +75,24 @@ flutter:
     - assets/icons/icon_store_qr.svg
     - assets/images/img_food.png
     - assets/images/img_product.png
+    - assets/images/img_splash.png
+    - assets/images/img_app_icon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
 
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/to/asset-from-package
-
+flutter_native_splash:
+  color: "#F72055"
+  image: assets/images/img_splash.png
+  android: true
+  ios: true
+  android_gravity: center
+  ios_content_mode: center
+  android_12:
+    image: assets/images/img_app_icon.png
+    icon_background_color: "#FFFFFF"
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a
