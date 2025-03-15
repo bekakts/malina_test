@@ -3,5 +3,5 @@ part 'main_event.freezed.dart';
 
 @freezed
 class MainEvent with _$MainEvent {
-  const factory MainEvent.cartOverlayToggled() = CartOverlayToggled;
+  const factory MainEvent.cartOverlayToggled([bool? isCartOverlayOpen]) = CartOverlayToggled;
 }

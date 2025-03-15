@@ -17,17 +17,18 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$MainEvent {
+  bool? get isCartOverlayOpen => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() cartOverlayToggled,
+    required TResult Function(bool? isCartOverlayOpen) cartOverlayToggled,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? cartOverlayToggled,
+    TResult? Function(bool? isCartOverlayOpen)? cartOverlayToggled,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? cartOverlayToggled,
+    TResult Function(bool? isCartOverlayOpen)? cartOverlayToggled,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -43,12 +44,20 @@ mixin _$MainEvent {
     TResult Function(CartOverlayToggled value)? cartOverlayToggled,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
+
+  /// Create a copy of MainEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $MainEventCopyWith<MainEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $MainEventCopyWith<$Res> {
   factory $MainEventCopyWith(MainEvent value, $Res Function(MainEvent) then) =
       _$MainEventCopyWithImpl<$Res, MainEvent>;
+  @useResult
+  $Res call({bool? isCartOverlayOpen});
 }
 
 /// @nodoc
@@ -63,14 +72,32 @@ class _$MainEventCopyWithImpl<$Res, $Val extends MainEvent>
 
   /// Create a copy of MainEvent
   /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? isCartOverlayOpen = freezed}) {
+    return _then(
+      _value.copyWith(
+            isCartOverlayOpen:
+                freezed == isCartOverlayOpen
+                    ? _value.isCartOverlayOpen
+                    : isCartOverlayOpen // ignore: cast_nullable_to_non_nullable
+                        as bool?,
+          )
+          as $Val,
+    );
+  }
 }
 
 /// @nodoc
-abstract class _$$CartOverlayToggledImplCopyWith<$Res> {
+abstract class _$$CartOverlayToggledImplCopyWith<$Res>
+    implements $MainEventCopyWith<$Res> {
   factory _$$CartOverlayToggledImplCopyWith(
     _$CartOverlayToggledImpl value,
     $Res Function(_$CartOverlayToggledImpl) then,
   ) = __$$CartOverlayToggledImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({bool? isCartOverlayOpen});
 }
 
 /// @nodoc
@@ -84,51 +111,80 @@ class __$$CartOverlayToggledImplCopyWithImpl<$Res>
 
   /// Create a copy of MainEvent
   /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? isCartOverlayOpen = freezed}) {
+    return _then(
+      _$CartOverlayToggledImpl(
+        freezed == isCartOverlayOpen
+            ? _value.isCartOverlayOpen
+            : isCartOverlayOpen // ignore: cast_nullable_to_non_nullable
+                as bool?,
+      ),
+    );
+  }
 }
 
 /// @nodoc
 
 class _$CartOverlayToggledImpl implements CartOverlayToggled {
-  const _$CartOverlayToggledImpl();
+  const _$CartOverlayToggledImpl([this.isCartOverlayOpen]);
+
+  @override
+  final bool? isCartOverlayOpen;
 
   @override
   String toString() {
-    return 'MainEvent.cartOverlayToggled()';
+    return 'MainEvent.cartOverlayToggled(isCartOverlayOpen: $isCartOverlayOpen)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$CartOverlayToggledImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$CartOverlayToggledImpl &&
+            (identical(other.isCartOverlayOpen, isCartOverlayOpen) ||
+                other.isCartOverlayOpen == isCartOverlayOpen));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, isCartOverlayOpen);
+
+  /// Create a copy of MainEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$CartOverlayToggledImplCopyWith<_$CartOverlayToggledImpl> get copyWith =>
+      __$$CartOverlayToggledImplCopyWithImpl<_$CartOverlayToggledImpl>(
+        this,
+        _$identity,
+      );
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() cartOverlayToggled,
+    required TResult Function(bool? isCartOverlayOpen) cartOverlayToggled,
   }) {
-    return cartOverlayToggled();
+    return cartOverlayToggled(isCartOverlayOpen);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? cartOverlayToggled,
+    TResult? Function(bool? isCartOverlayOpen)? cartOverlayToggled,
   }) {
-    return cartOverlayToggled?.call();
+    return cartOverlayToggled?.call(isCartOverlayOpen);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? cartOverlayToggled,
+    TResult Function(bool? isCartOverlayOpen)? cartOverlayToggled,
     required TResult orElse(),
   }) {
     if (cartOverlayToggled != null) {
-      return cartOverlayToggled();
+      return cartOverlayToggled(isCartOverlayOpen);
     }
     return orElse();
   }
@@ -163,5 +219,16 @@ class _$CartOverlayToggledImpl implements CartOverlayToggled {
 }
 
 abstract class CartOverlayToggled implements MainEvent {
-  const factory CartOverlayToggled() = _$CartOverlayToggledImpl;
+  const factory CartOverlayToggled([final bool? isCartOverlayOpen]) =
+      _$CartOverlayToggledImpl;
+
+  @override
+  bool? get isCartOverlayOpen;
+
+  /// Create a copy of MainEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$CartOverlayToggledImplCopyWith<_$CartOverlayToggledImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
