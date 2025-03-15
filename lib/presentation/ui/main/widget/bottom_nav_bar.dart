@@ -1,9 +1,13 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:malina_test/presentation/routing/app_router.dart';
 import 'package:malina_test/presentation/ui/main/event/main_event.dart';
 import 'package:malina_test/presentation/ui/main/main_bloc.dart';
 import 'package:malina_test/presentation/ui/main/state/main_state.dart';
 import 'dart:math' as math;
+
+import 'package:permission_handler/permission_handler.dart';
 
 class BottomNavBar extends StatelessWidget {
   final MainState state;
@@ -19,7 +23,10 @@ class BottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
+    final screenWidth = MediaQuery
+        .of(context)
+        .size
+        .width;
 
     final rawCalculatedHeight = screenWidth / 5 + 10;
     final calculatedHeight = math.max(rawCalculatedHeight, 60).toDouble();
@@ -27,7 +34,9 @@ class BottomNavBar extends StatelessWidget {
     return Stack(
       children: [
         Positioned(
-          left: 0, right: 0, bottom: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
           child: Material(
             elevation: 8,
             color: Colors.transparent,
@@ -42,7 +51,9 @@ class BottomNavBar extends StatelessWidget {
           ),
         ),
         Positioned(
-          left: 0, right: 0, bottom: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
           child: Padding(
             padding: const EdgeInsets.only(bottom: 10.0),
             child: _bottomNavBar(context),
@@ -53,7 +64,10 @@ class BottomNavBar extends StatelessWidget {
   }
 
   Widget _bottomNavBar(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
+    final screenWidth = MediaQuery
+        .of(context)
+        .size
+        .width;
 
     final rawButtonSize = screenWidth / 5 - 10;
     final bottomButtonSize = math.max(rawButtonSize, 40).toDouble();
@@ -98,7 +112,17 @@ class BottomNavBar extends StatelessWidget {
                 elevation: 4,
               ),
               onPressed: () {
-                // Central action, if any
+                _requestCameraPermission(() {
+                  context.router.push(QrScannerRoute());
+                }, () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text(
+                        'Camera permission is permanently denied. Please enable it in Settings.',
+                      ),
+                    ),
+                  );
+                });
               },
               child: const Icon(Icons.apps, color: Colors.white),
             ),
@@ -115,17 +139,18 @@ class BottomNavBar extends StatelessWidget {
                 () => onTabSelected(2),
           ),
         ),
-        // Expanding section for "Еда" + "Корзина"
-        buildExpandingButtons(context, state.isCartOverlayOpen, bottomButtonSize),
+        buildExpandingButtons(
+          context,
+          state.isCartOverlayOpen,
+          bottomButtonSize,
+        ),
       ],
     );
   }
 
-  Widget buildExpandingButtons(
-      BuildContext context,
+  Widget buildExpandingButtons(BuildContext context,
       bool isExpanded,
-      double buttonSize,
-      ) {
+      double buttonSize,) {
     final mainBloc = context.read<MainBloc>();
 
     const double spacing = 10.0;
@@ -227,13 +252,11 @@ class BottomNavBar extends StatelessWidget {
     );
   }
 
-  Widget bottomNavButton(
-      double buttonSize,
+  Widget bottomNavButton(double buttonSize,
       bool isSelected,
       String tabTitle,
       IconData icon,
-      VoidCallback onTap,
-      ) {
+      VoidCallback onTap,) {
     return GestureDetector(
       onTap: onTap,
       child: CircleAvatar(
@@ -255,5 +278,23 @@ class BottomNavBar extends StatelessWidget {
       ),
     );
   }
-}
 
+  void _requestCameraPermission(VoidCallback onAccepted,
+      VoidCallback showDeniedSnackBar) async {
+    final status = await Permission.camera.status;
+
+    if (status.isGranted) {
+      onAccepted();
+    } else {
+      final newStatus = await Permission.camera.request();
+
+      if (newStatus.isGranted) {
+        onAccepted();
+      } else if (newStatus.isPermanentlyDenied) {
+        showDeniedSnackBar();
+      } else {
+        showDeniedSnackBar();
+      }
+    }
+  }
+}

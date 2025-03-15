@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 
 @RoutePage()
 class SuccessPage extends StatelessWidget {
-  const SuccessPage({super.key});
+  final String scannedData;
+
+  const SuccessPage({super.key, required this.scannedData});
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: Center(child: Text("Success qr")));
+    return Scaffold(body: Center(child: Text(scannedData)));
   }
 }
