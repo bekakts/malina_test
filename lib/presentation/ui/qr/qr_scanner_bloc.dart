@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:malina_test/presentation/ui/qr/state/qr_scanner_state.dart';
+import 'package:malina_test/presentation/utils/app_strings.dart';
 
 import 'event/qr_scanner_event.dart';
 
@@ -20,7 +21,7 @@ class QrScannerBloc extends Bloc<QrScannerEvent, QrScannerState> {
   }
 
   void _onDetectError(DetectError event, Emitter<QrScannerState> emit) {
-    emit(const QrScannerState.error('No code found'));
+    emit(const QrScannerState.error(AppStrings.invalidQR));
   }
 
   void _onBarcodeDetected(BarcodeDetected event, Emitter<QrScannerState> emit) {
@@ -29,7 +30,7 @@ class QrScannerBloc extends Bloc<QrScannerEvent, QrScannerState> {
 
     final rawValue = barcodes.first.rawValue;
     if (rawValue == null || rawValue.isEmpty) {
-      emit(const QrScannerState.error('No code found'));
+      emit(const QrScannerState.error(AppStrings.invalidQR));
     } else {
       emit(QrScannerState.navigating(rawValue));
     }

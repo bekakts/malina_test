@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:malina_test/presentation/ui/qr/qr_scanner_bloc.dart';
 import 'package:malina_test/presentation/ui/qr/state/qr_scanner_state.dart';
 import 'package:malina_test/presentation/ui/qr/widget/qr_scanner_overlay_painter.dart';
+import 'package:malina_test/presentation/utils/app_strings.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
 import '../../../di/main_di.dart';
@@ -54,17 +55,17 @@ class _QrScannerPageState extends State<QrScannerPage> {
       context: context,
       builder: (ctx) {
         return AlertDialog(
-          title: const Text('Error'),
+          title: Text(AppStrings.error),
           actions: [
             TextButton(
-              child: const Text('Back'),
+              child: Text(AppStrings.back),
               onPressed: () {
                 Navigator.of(ctx).pop(); // close dialog
                 context.read<QrScannerBloc>().add(const QrScannerEvent.back());
               },
             ),
             TextButton(
-              child: const Text('Retry'),
+              child: Text(AppStrings.retry),
               onPressed: () {
                 Navigator.of(ctx).pop();
                 context.read<QrScannerBloc>().add(const QrScannerEvent.retry());
@@ -115,9 +116,9 @@ class _QrScannerPageState extends State<QrScannerPage> {
               top: top - 50,
               left: 0,
               right: 0,
-              child: const Center(
+              child:  Center(
                 child: Text(
-                  'Поместите QR-код в рамку',
+                  AppStrings.putQrToSquare,
                   style: TextStyle(color: Colors.white, fontSize: 16),
                 ),
               ),

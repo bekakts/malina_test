@@ -1,9 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:malina_test/presentation/routing/app_router.dart';
 import 'package:malina_test/presentation/ui/main/state/main_state.dart';
 import 'package:malina_test/presentation/ui/main/widget/shopping_cart_container.dart';
+import 'package:malina_test/presentation/utils/app_colors.dart';
+import 'package:malina_test/presentation/utils/app_icons.dart';
+import 'package:malina_test/presentation/utils/app_strings.dart';
 import 'dart:math' as math;
 import 'package:permission_handler/permission_handler.dart';
 import '../event/main_event.dart';
@@ -42,7 +46,7 @@ class BottomNavBar extends StatelessWidget {
             child: Container(
               height: calculatedHeight,
               decoration: const BoxDecoration(
-                color: Colors.white,
+                color: AppColors.white,
                 borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
               ),
             ),
@@ -77,11 +81,12 @@ class BottomNavBar extends StatelessWidget {
           child: bottomNavButton(
             bottomButtonSize,
             currentIndex == 0,
-            "Лента",
-            Icons.store,
-            (){
+            AppStrings.store,
+            AppIcons.store,
+            () {
               mainBloc.add(const MainEvent.cartOverlayToggled(false));
-              onTabSelected(0);},
+              onTabSelected(0);
+            },
           ),
         ),
 
@@ -90,11 +95,12 @@ class BottomNavBar extends StatelessWidget {
           child: bottomNavButton(
             bottomButtonSize,
             currentIndex == 1,
-            "Избранное",
-            Icons.favorite,
-                (){
+            AppStrings.favorite,
+            AppIcons.favorite,
+            () {
               mainBloc.add(const MainEvent.cartOverlayToggled(false));
-              onTabSelected(1);},
+              onTabSelected(1);
+            },
           ),
         ),
         Padding(
@@ -104,7 +110,7 @@ class BottomNavBar extends StatelessWidget {
             height: bottomButtonSize,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red,
+                backgroundColor: AppColors.malina,
                 shape: const CircleBorder(),
                 minimumSize: Size(bottomButtonSize, bottomButtonSize),
                 elevation: 4,
@@ -117,30 +123,28 @@ class BottomNavBar extends StatelessWidget {
                   },
                   () {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text(
-                          'Camera permission is permanently denied. Please enable it in Settings.',
-                        ),
+                      SnackBar(
+                        content: Text(AppStrings.cameraPermissionDenied),
                       ),
                     );
                   },
                 );
               },
-              child: const Icon(Icons.apps, color: Colors.white),
+              child: SvgPicture.asset(AppIcons.qr),
             ),
           ),
         ),
-        // "Профиль"
         Padding(
           padding: const EdgeInsets.all(5.0),
           child: bottomNavButton(
             bottomButtonSize,
             currentIndex == 2,
-            "Профиль",
-            Icons.person,
-                (){
+            AppStrings.profile,
+            AppIcons.profile,
+            () {
               mainBloc.add(const MainEvent.cartOverlayToggled(false));
-              onTabSelected(2);},
+              onTabSelected(2);
+            },
           ),
         ),
 

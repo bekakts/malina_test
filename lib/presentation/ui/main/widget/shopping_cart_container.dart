@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:malina_test/presentation/utils/app_strings.dart';
+import 'package:malina_test/presentation/utils/app_colors.dart';
 
+import '../../../utils/app_icons.dart';
 import '../event/main_event.dart';
 import '../main_bloc.dart';
 import 'bottom_nav_button.dart';
@@ -29,7 +33,7 @@ Widget buildShoppingCartContainer(
     width: containerWidth,
     height: containerHeight,
     decoration: BoxDecoration(
-      color: Colors.white,
+      color: AppColors.white,
       borderRadius: BorderRadius.circular(50),
     ),
     clipBehavior: Clip.hardEdge,
@@ -52,17 +56,17 @@ Widget buildShoppingCartContainer(
               },
               child: CircleAvatar(
                 radius: buttonSize / 2,
-                backgroundColor: Colors.blue,
+                backgroundColor: AppColors.bgSoftGrey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Icon(Icons.food_bank_outlined),
+                  children: [
+                    SvgPicture.asset(AppIcons.food),
                     SizedBox(height: 1),
                     Text(
-                      "Еда",
+                      AppStrings.food,
                       style: TextStyle(
                         fontWeight: FontWeight.w400,
-                        color: Colors.black,
+                        color: AppColors.black,
                         fontSize: 10,
                       ),
                     ),
@@ -83,19 +87,32 @@ Widget buildShoppingCartContainer(
               },
               child: CircleAvatar(
                 radius: buttonSize / 2,
-                backgroundColor: Colors.green,
-                child: const Icon(Icons.share),
+                backgroundColor: AppColors.bgSoftGrey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset(AppIcons.product),
+                    SizedBox(height: 1),
+                    Text(
+                      AppStrings.product,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.black,
+                        fontSize: 10,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
-          // "Корзина"
           Positioned(
             bottom: 0,
             child: bottomNavButton(
               buttonSize,
               currentIndex == 4 || currentIndex == 3,
-              "Корзина",
-              Icons.shopping_cart,
+              AppStrings.shoppingCart,
+              AppIcons.shoppingCart,
               () {
                 mainBloc.add(const MainEvent.cartOverlayToggled());
               },
