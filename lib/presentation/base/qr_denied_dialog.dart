@@ -1,13 +1,12 @@
-
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:malina_test/presentation/utils/app_strings.dart';
 
 Widget buildQrDeniedDialog({required BuildContext context}) {
   return AlertDialog(
     backgroundColor: Colors.white,
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+    contentPadding: EdgeInsets.all(16),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
     content: Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -28,9 +27,7 @@ Widget buildQrDeniedDialog({required BuildContext context}) {
                   Navigator.of(context).pop();
                 },
                 borderRadius: BorderRadius.circular(8), // Improved tap target area
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Text(
+                child:  Text(
                     AppStrings.openSettings,
                     textAlign: TextAlign.center,
                     style: const TextStyle(
@@ -39,7 +36,6 @@ Widget buildQrDeniedDialog({required BuildContext context}) {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                ),
               ),
             ),
             const SizedBox(width: 40),
@@ -48,9 +44,7 @@ Widget buildQrDeniedDialog({required BuildContext context}) {
               child: InkWell(
                 onTap: () => Navigator.of(context).pop(),
                 borderRadius: BorderRadius.circular(8),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Text(
+                child:  Text(
                     AppStrings.cancel,
                     textAlign: TextAlign.center,
                     style: const TextStyle(
@@ -59,7 +53,6 @@ Widget buildQrDeniedDialog({required BuildContext context}) {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                ),
               ),
             ),
           ],
