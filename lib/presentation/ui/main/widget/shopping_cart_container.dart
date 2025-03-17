@@ -74,8 +74,7 @@ Widget buildShoppingCartContainer(
                         state.shoppingCartType == ShoppingCartType.food
                             ? AppColors.white
                             : AppColors.black,
-                        BlendMode
-                            .srcIn, // This ensures the source SVG is tinted
+                        BlendMode.srcIn,
                       ),
                     ),
                     SizedBox(height: 1),
@@ -95,7 +94,6 @@ Widget buildShoppingCartContainer(
               ),
             ),
           ),
-          // Extra expanding button
           AnimatedPositioned(
             duration: const Duration(milliseconds: 200),
             curve: Curves.easeInOut,
@@ -126,7 +124,7 @@ Widget buildShoppingCartContainer(
                             ? AppColors.white
                             : AppColors.black,
                         BlendMode
-                            .srcIn, // This ensures the source SVG is tinted
+                            .srcIn,
                       ),
                     ),
                     SizedBox(height: 1),
