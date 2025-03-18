@@ -24,23 +24,24 @@ class MainPage extends StatelessWidget {
           ],
           builder: (context, child) {
             final tabsRouter = AutoTabsRouter.of(context);
+            final mediaQuery = MediaQuery.of(context);
+            final shortestSide = mediaQuery.size.shortestSide;
+            final bottomNavHeight = (shortestSide / 5 +10).clamp(60.0, 200.0);
+
 
             return Scaffold(
               body: Stack(
                 children: [
-                  Positioned.fill(
-                    child: Padding(
-                      padding: EdgeInsets.only(bottom: kBottomNavigationBarHeight-12),
-                      child: child,
-                    ),
-                  ),
+                  Positioned.fill(bottom: bottomNavHeight - 12, child: child),
 
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: BottomNavBar(
+                      bottomNavHeight: bottomNavHeight,
                       state: state,
                       currentIndex: tabsRouter.activeIndex,
-                      onTabSelected: (index) => tabsRouter.setActiveIndex(index),
+                      onTabSelected:
+                          (index) => tabsRouter.setActiveIndex(index),
                     ),
                   ),
                 ],

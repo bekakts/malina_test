@@ -1,70 +1,84 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:malina_test/presentation/ui/main/state/main_state.dart';
+
+// Replace these with your actual imports
+import '../main_bloc.dart';
+import '../event/main_event.dart';
+import '../state/main_state.dart';
+import 'bottom_nav_button.dart';
 import 'package:malina_test/presentation/utils/app_strings.dart';
 import 'package:malina_test/presentation/utils/app_colors.dart';
+import 'package:malina_test/presentation/utils/app_icons.dart';
 
-import '../../../utils/app_icons.dart';
-import '../event/main_event.dart';
-import '../main_bloc.dart';
-import 'bottom_nav_button.dart';
+class ShoppingCartContainer extends StatelessWidget {
+  final MainState state;
+  final double buttonSize;
+  final ValueChanged<int> onTabSelected;
+  final int currentIndex;
 
-Widget buildShoppingCartContainer(
-  BuildContext context,
-  MainState state,
-  double buttonSize,
-  Function(int index) onTabSelected,
-  int currentIndex,
-) {
-  final mainBloc = context.read<MainBloc>();
+  const ShoppingCartContainer({
+    Key? key,
+    required this.state,
+    required this.buttonSize,
+    required this.onTabSelected,
+    required this.currentIndex,
+  }) : super(key: key);
 
-  const double spacing = 10.0;
+  @override
+  Widget build(BuildContext context) {
+    final mainBloc = context.read<MainBloc>();
+    const double betweenSpacing = 10.0;
 
-  final double totalHeight = buttonSize * 3 + spacing * 2;
+    // Calculate the height for the overlay
+    final double totalHeight = (buttonSize * 3) + (betweenSpacing * 2) + 10;
+    final double containerHeight = state.isCartOverlayOpen
+        ? totalHeight
+        : (buttonSize + 5);
 
-  final double containerHeight =
-      (state.isCartOverlayOpen ? totalHeight : buttonSize) + 10;
-  final double containerWidth = buttonSize + 10;
+    // We add a little horizontal padding:
+    final double containerWidth = buttonSize + 10;
 
-  return AnimatedContainer(
-    duration: const Duration(milliseconds: 200),
-    curve: Curves.easeInOut,
-    padding: const EdgeInsets.all(5.0),
-    alignment: Alignment.bottomCenter,
-    width: containerWidth,
-    height: containerHeight,
-    decoration: BoxDecoration(
-      color: AppColors.white,
-      borderRadius: BorderRadius.circular(50),
-    ),
-    clipBehavior: Clip.hardEdge,
-    child: SizedBox(
-      width: buttonSize,
-      height: totalHeight,
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 200),
+      curve: Curves.easeInOut,
+      width: containerWidth,
+      height: containerHeight,
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      decoration: BoxDecoration(
+        color: AppColors.white,
+        borderRadius: BorderRadius.circular(50),
+        boxShadow: [
+          if (state.isCartOverlayOpen)
+            const BoxShadow(
+              color: Color(0x19727272),
+              offset: Offset(0, -30),
+              blurRadius: 20,
+              spreadRadius: 0,
+            ),
+        ],
+      ),
+      clipBehavior: Clip.hardEdge,
       child: Stack(
         clipBehavior: Clip.none,
-        alignment: Alignment.bottomCenter,
+        alignment: Alignment.center,
         children: [
-          // "Еда"
+          // Food
           AnimatedPositioned(
             duration: const Duration(milliseconds: 200),
             curve: Curves.easeInOut,
-            bottom: state.isCartOverlayOpen ? buttonSize * 2 + spacing * 2 : 0,
+            bottom: state.isCartOverlayOpen ? (buttonSize * 2 + betweenSpacing * 2) : 0,
             child: GestureDetector(
               onTap: () {
                 mainBloc.add(const MainEvent.cartOverlayToggled());
-                mainBloc.add(
-                  const MainEvent.updateShoppingCartType(ShoppingCartType.food),
-                );
+                mainBloc.add(const MainEvent.updateShoppingCartType(ShoppingCartType.food));
                 onTabSelected(3);
               },
               child: CircleAvatar(
                 radius: buttonSize / 2,
-                backgroundColor:
-                    state.shoppingCartType == ShoppingCartType.food
-                        ? AppColors.malina
-                        : AppColors.bgSoftGrey,
+                backgroundColor: state.shoppingCartType == ShoppingCartType.food
+                    ? AppColors.malina
+                    : AppColors.bgSoftGrey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -77,15 +91,14 @@ Widget buildShoppingCartContainer(
                         BlendMode.srcIn,
                       ),
                     ),
-                    SizedBox(height: 1),
+                    const SizedBox(height: 1),
                     Text(
                       AppStrings.food,
                       style: TextStyle(
                         fontWeight: FontWeight.w400,
-                        color:
-                            state.shoppingCartType == ShoppingCartType.food
-                                ? AppColors.white
-                                : AppColors.black,
+                        color: state.shoppingCartType == ShoppingCartType.food
+                            ? AppColors.white
+                            : AppColors.black,
                         fontSize: 10,
                       ),
                     ),
@@ -94,26 +107,23 @@ Widget buildShoppingCartContainer(
               ),
             ),
           ),
+
+          // Product
           AnimatedPositioned(
             duration: const Duration(milliseconds: 200),
             curve: Curves.easeInOut,
-            bottom: state.isCartOverlayOpen ? buttonSize + spacing : 0,
+            bottom: state.isCartOverlayOpen ? (buttonSize + betweenSpacing) : 0,
             child: GestureDetector(
               onTap: () {
                 mainBloc.add(const MainEvent.cartOverlayToggled());
-                mainBloc.add(
-                  const MainEvent.updateShoppingCartType(
-                    ShoppingCartType.product,
-                  ),
-                );
+                mainBloc.add(const MainEvent.updateShoppingCartType(ShoppingCartType.product));
                 onTabSelected(4);
               },
               child: CircleAvatar(
                 radius: buttonSize / 2,
-                backgroundColor:
-                    state.shoppingCartType == ShoppingCartType.product
-                        ? AppColors.malina
-                        : AppColors.bgSoftGrey,
+                backgroundColor: state.shoppingCartType == ShoppingCartType.product
+                    ? AppColors.malina
+                    : AppColors.bgSoftGrey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -123,19 +133,17 @@ Widget buildShoppingCartContainer(
                         state.shoppingCartType == ShoppingCartType.product
                             ? AppColors.white
                             : AppColors.black,
-                        BlendMode
-                            .srcIn,
+                        BlendMode.srcIn,
                       ),
                     ),
-                    SizedBox(height: 1),
+                    const SizedBox(height: 1),
                     Text(
                       AppStrings.product,
                       style: TextStyle(
                         fontWeight: FontWeight.w400,
-                        color:
-                            state.shoppingCartType == ShoppingCartType.product
-                                ? AppColors.white
-                                : AppColors.black,
+                        color: state.shoppingCartType == ShoppingCartType.product
+                            ? AppColors.white
+                            : AppColors.black,
                         fontSize: 10,
                       ),
                     ),
@@ -144,20 +152,22 @@ Widget buildShoppingCartContainer(
               ),
             ),
           ),
+
+          // Main "shopping cart" button
           Positioned(
             bottom: 0,
-            child: bottomNavButton(
-              buttonSize,
-              currentIndex == 4 || currentIndex == 3,
-              AppStrings.shoppingCart,
-              AppIcons.shoppingCart,
-              () {
+            child: BottomNavButton(
+              buttonSize: buttonSize,
+              isSelected: currentIndex == 3 || currentIndex == 4,
+              tabTitle: AppStrings.shoppingCart,
+              icon: AppIcons.shoppingCart,
+              onTap: () {
                 mainBloc.add(const MainEvent.cartOverlayToggled());
               },
             ),
           ),
         ],
       ),
-    ),
-  );
+    );
+  }
 }
