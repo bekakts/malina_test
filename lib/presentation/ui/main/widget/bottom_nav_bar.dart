@@ -54,6 +54,7 @@ class BottomNavBar extends StatelessWidget {
             ),
           ),
         ),
+
         Align(
           alignment: Alignment.bottomCenter,
           child: Padding(
