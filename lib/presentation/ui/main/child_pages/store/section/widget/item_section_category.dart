@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:malina_test/presentation/ui/main/child_pages/store/section/widget/section_ui.dart';
 import 'package:malina_test/presentation/utils/app_images.dart';
 
+
 class ItemSectionCategory extends StatelessWidget {
   final SectionUI item;
 
