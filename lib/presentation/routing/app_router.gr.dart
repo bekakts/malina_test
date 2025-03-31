@@ -107,6 +107,38 @@ class QrScannerRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [SectionPage]
+class SectionRoute extends PageRouteInfo<void> {
+  const SectionRoute({List<PageRouteInfo>? children})
+    : super(SectionRoute.name, initialChildren: children);
+
+  static const String name = 'SectionRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const SectionPage();
+    },
+  );
+}
+
+/// generated route for
+/// [StoreHomePage]
+class StoreHomeRoute extends PageRouteInfo<void> {
+  const StoreHomeRoute({List<PageRouteInfo>? children})
+    : super(StoreHomeRoute.name, initialChildren: children);
+
+  static const String name = 'StoreHomeRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const StoreHomePage();
+    },
+  );
+}
+
+/// generated route for
 /// [StorePage]
 class StoreRoute extends PageRouteInfo<void> {
   const StoreRoute({List<PageRouteInfo>? children})

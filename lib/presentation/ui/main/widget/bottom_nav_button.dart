@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../utils/app_colors.dart';
-// import 'package:malina_test/presentation/utils/app_colors.dart'; // Use your actual color imports
 
 class BottomNavButton extends StatelessWidget {
   final bool isSelected;
@@ -17,7 +16,7 @@ class BottomNavButton extends StatelessWidget {
     required this.tabTitle,
     required this.icon,
     required this.onTap,
-    this.buttonSize = 50.0, // default diameter
+    this.buttonSize = 50.0,
   });
 
   @override

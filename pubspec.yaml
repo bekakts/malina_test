@@ -74,6 +74,12 @@ flutter:
     - assets/bottom_nav_icons/icon_store.svg
     - assets/icons/icon_search.svg
     - assets/icons/icon_store_qr.svg
+    - assets/icons/icon_section_search.svg
+    - assets/icons/icon_coin.svg
+    - assets/icons/icon_lock.svg
+    - assets/icons/icon_star.svg
+    - assets/icons/icon_time.svg
+    - assets/icons/icon_way.svg
     - assets/images/img_food.png
     - assets/images/img_product.png
     - assets/images/img_splash.png

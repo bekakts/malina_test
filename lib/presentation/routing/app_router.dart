@@ -5,6 +5,8 @@ import '../ui/main/child_pages/favorite/favorite_page.dart';
 import '../ui/main/child_pages/profile/profile_page.dart';
 import '../ui/main/child_pages/shopping_cart/food/food_page.dart';
 import '../ui/main/child_pages/shopping_cart/product/product_page.dart';
+import '../ui/main/child_pages/store/home/store_home_page.dart';
+import '../ui/main/child_pages/store/section/section_page.dart';
 import '../ui/main/child_pages/store/store_page.dart';
 import '../ui/main/main_page.dart';
 import '../ui/qr/qr_scanner_page.dart';
@@ -20,7 +22,14 @@ class AppRouter extends RootStackRouter {
       initial: true,
       page: MainRoute.page,
       children: [
-        AutoRoute(page: StoreRoute.page, initial: true),
+        AutoRoute(
+          page: StoreRoute.page,
+          initial: true,
+          children: [
+            AutoRoute(page: StoreHomeRoute.page, initial: true),
+            AutoRoute(page: SectionRoute.page),
+          ],
+        ),
         AutoRoute(page: FavoriteRoute.page),
         AutoRoute(page: ProfileRoute.page),
         AutoRoute(page: FoodRoute.page),

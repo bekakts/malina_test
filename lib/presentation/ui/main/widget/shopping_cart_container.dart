@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-// Replace these with your actual imports
 import '../main_bloc.dart';
 import '../event/main_event.dart';
 import '../state/main_state.dart';
@@ -18,25 +17,23 @@ class ShoppingCartContainer extends StatelessWidget {
   final int currentIndex;
 
   const ShoppingCartContainer({
-    Key? key,
+    super.key,
     required this.state,
     required this.buttonSize,
     required this.onTabSelected,
     required this.currentIndex,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     final mainBloc = context.read<MainBloc>();
     const double betweenSpacing = 10.0;
 
-    // Calculate the height for the overlay
     final double totalHeight = (buttonSize * 3) + (betweenSpacing * 2) + 10;
     final double containerHeight = state.isCartOverlayOpen
         ? totalHeight
         : (buttonSize + 5);
 
-    // We add a little horizontal padding:
     final double containerWidth = buttonSize + 10;
 
     return AnimatedContainer(
@@ -47,7 +44,7 @@ class ShoppingCartContainer extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 5),
       decoration: BoxDecoration(
         color: AppColors.white,
-        borderRadius: BorderRadius.circular(50),
+        borderRadius: BorderRadius.circular(containerWidth/2),
         boxShadow: [
           if (state.isCartOverlayOpen)
             const BoxShadow(
@@ -153,7 +150,6 @@ class ShoppingCartContainer extends StatelessWidget {
             ),
           ),
 
-          // Main "shopping cart" button
           Positioned(
             bottom: 0,
             child: BottomNavButton(
